@@ -6,6 +6,8 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="./node_modules/angular-material/angular-material.css">
 		<link rel="stylesheet" href="./build/app.css">
+
+		<title>Basket</title>
 	</head>
 
 	<body ng-app="app" ng-controller="BasketController as Main">
@@ -19,6 +21,12 @@
 						</h2>
 				    </div>
 				</md-toolbar>
+				<md-list>
+					<md-list-item ng-repeat="list in Lists.lists">
+						<h3>{{ list.name }}</h3>
+						<p>{{ list.id }}</p>
+					</md-list-item>
+				</md-list>
 			</md-content>
 			<md-button class="md-fab" aria-label="New List" ng-click="Lists.addList()">
 	            <md-icon md-svg-src="img/add.svg"></md-icon>

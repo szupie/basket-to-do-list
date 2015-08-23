@@ -4,6 +4,8 @@ angular
 
 function ListsController(listService) {
 	
+	this.lists = listService.lists;
+
 	this.addList = listService.add;
-	
+
 }
