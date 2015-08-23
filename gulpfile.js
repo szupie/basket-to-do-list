@@ -4,25 +4,18 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('watch', function () {
   gulp.watch('./js/**/*.js', ['js']);
   gulp.watch('./sass/**/*.scss', ['sass']);
 });
 
-gulp.task('vendor', function() {  
-	return gulp.src('vendor/*.js')
-				.pipe(sourcemaps.init())
-				.pipe(concat('vendor.js'))
-				.pipe(uglify())
-				.pipe(sourcemaps.write())
-				.pipe(gulp.dest('build/vendor.js'))
-});
-
 gulp.task('js', function() {  
 	return gulp.src('js/**/*.js')
 				.pipe(sourcemaps.init())
 				.pipe(concat('app.js'))
+				.pipe(ngAnnotate())
 				.pipe(uglify())
 				.pipe(sourcemaps.write())
 				.pipe(gulp.dest('build'))
