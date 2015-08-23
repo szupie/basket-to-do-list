@@ -10,29 +10,37 @@
 		<title>Basket</title>
 	</head>
 
-	<body ng-app="app" ng-controller="BasketController as Main">
+	<body ng-app="app" ng-controller="BasketController as Main" layout="row">
 
-		<section id="lists view" ng-controller="ListsController as Lists">
-			<md-content>
+		<md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
+			<md-content class="lists view" ng-controller="ListsController as Lists">
 				<md-toolbar>
 				    <div class="md-toolbar-tools">
 				        <h2>
 							<span>Lists</span>
 						</h2>
+						<md-button aria-label="New List" ng-click="Lists.addList()">
+				            <md-icon md-svg-src="img/add.svg"></md-icon>
+							<md-tooltip>New List</md-tooltip>
+				        </md-button>
 				    </div>
 				</md-toolbar>
 				<md-list>
-					<md-list-item ng-repeat="list in Lists.lists">
+					<md-list-item ng-repeat="list in Lists.lists" ng-click="Main.currentList = list">
 						<h3>{{ list.name }}</h3>
 						<p>{{ list.id }}</p>
 					</md-list-item>
 				</md-list>
 			</md-content>
-			<md-button class="md-fab" aria-label="New List" ng-click="Lists.addList()">
+		</md-sidenav>
+
+		<md-content class="items view" ng-controller="ItemsController as Items">
+			<md-subheader>{{ Main.currentList.name }}</md-subheader>
+			<md-button class="md-fab" aria-label="New Item">
 	            <md-icon md-svg-src="img/add.svg"></md-icon>
-				<md-tooltip>New List</md-tooltip>
+				<md-tooltip>New Item</md-tooltip>
 	        </md-button>
-		</section>
+		</md-content>
 
 		<script src="./node_modules/angular/angular.js"></script>
 		<script src="./node_modules/angular-aria/angular-aria.js"></script>

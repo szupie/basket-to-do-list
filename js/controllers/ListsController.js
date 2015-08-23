@@ -2,10 +2,10 @@ angular
 	.module('app')
 	.controller('ListsController', ListsController);
 
-function ListsController(listService) {
+function ListsController(allListsService) {
 	
-	this.lists = listService.lists;
+	this.lists = allListsService.lists;
 
-	this.addList = listService.add;
+	this.addList = allListsService.add;
 
 }

@@ -1,8 +1,8 @@
 angular
 	.module('app')
-	.factory('listService', listService);
+	.factory('allListsService', allListsService);
 
-function listService() {
+function allListsService() {
 
 	var lists = [];
 
