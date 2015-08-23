@@ -26,7 +26,7 @@
 				    </div>
 				</md-toolbar>
 				<md-list>
-					<md-list-item ng-repeat="list in Lists.lists" ng-click="Main.currentList = list">
+					<md-list-item ng-repeat="list in Lists.lists" bk-list-info>
 						<h3>{{ list.name }}</h3>
 						<p>{{ list.id }}</p>
 					</md-list-item>
@@ -36,7 +36,13 @@
 
 		<md-content class="items view" ng-controller="ItemsController as Items">
 			<md-subheader>{{ Main.currentList.name }}</md-subheader>
-			<md-button class="md-fab" aria-label="New Item">
+			<md-list>
+				<md-list-item ng-repeat="item in Main.currentList.items">
+					<h4>{{ item.title }}</h4>
+					<p>{{ item.notes }}</p>
+				</md-list-item>
+			</md-list>
+			<md-button class="md-fab" aria-label="New Item" ng-click="Items.addItem()">
 	            <md-icon md-svg-src="img/add.svg"></md-icon>
 				<md-tooltip>New Item</md-tooltip>
 	        </md-button>

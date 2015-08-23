@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.factory('allListsService', allListsService);
 
-function allListsService() {
+function allListsService(ListObject) {
 
 	var lists = [];
 
@@ -12,10 +12,9 @@ function allListsService() {
 	};
 
 	function add() {
-		lists.push( {
-			id: getUniqId(),
-			name: "New List "+(lists.length+1)
-		} );
+		lists.push(
+			new ListObject(getUniqId(), "New List "+(lists.length+1))
+		);
 	}
 
 	function getUniqId() {
