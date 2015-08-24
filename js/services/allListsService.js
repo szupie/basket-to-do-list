@@ -12,9 +12,10 @@ function allListsService(ListObject) {
 	};
 
 	function add() {
-		lists.push(
+		lists.unshift(
 			new ListObject(getUniqId(), "New List "+(lists.length+1))
 		);
+		return lists[0];
 	}
 
 	function getUniqId() {

@@ -12,6 +12,9 @@ function ItemsController($scope) {
 	var main = $scope.Main;
 
 	function addItem() {
+		if (!vm.getCurrentList()) {
+			main.newList();
+		}
 		vm.getCurrentList().addItem();
 	}
 
