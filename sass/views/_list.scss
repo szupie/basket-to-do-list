@@ -1,0 +1,32 @@
+ [bk-list-view] {
+	width: 100%;
+	background-color: #f8f8f8;
+	.md-subheader {
+		background-color: inherit;
+	}
+	bk-item {
+		width: 100%;
+		h4.title {
+			margin: 0;
+		}
+		p.note {
+			margin-bottom: 0;
+		}
+		.title, .note {
+			padding: 0;
+		}
+		&.editable {
+			h4.title, p.note {
+				display: none;
+			}
+		}
+		&:not(.editable) {
+			md-input-container {
+				display: none;
+			}
+		}
+	}
+	md-card {
+		width: 100%;
+	}
+}

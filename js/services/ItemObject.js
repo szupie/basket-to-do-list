@@ -5,8 +5,8 @@ angular
 function ItemObject() {
 
 	var itemObject = function() {
-		this.title = 'lol';
-		this.note = 'wtf';
+		this.title = '';
+		this.note = '';
 	}
 
 	return itemObject;

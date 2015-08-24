@@ -12,7 +12,7 @@ function ListObject(ItemObject) {
 	}
 
 	function addItem() {
-		this.items.push(new ItemObject());
+		this.items.unshift(new ItemObject());
 	}
 
 	return listObject;

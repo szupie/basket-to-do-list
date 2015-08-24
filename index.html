@@ -34,12 +34,11 @@
 			</md-content>
 		</md-sidenav>
 
-		<md-content class="items view" ng-controller="ItemsController as Items">
+		<md-content bk-list-view ng-controller="ItemsController as Items">
 			<md-subheader>{{ Main.currentList.name }}</md-subheader>
 			<md-list>
 				<md-list-item ng-repeat="item in Main.currentList.items">
-					<h4>{{ item.title }}</h4>
-					<p>{{ item.notes }}</p>
+					<bk-item></bk-item>
 				</md-list-item>
 			</md-list>
 			<md-button class="md-fab" aria-label="New Item" ng-click="Items.addItem()">

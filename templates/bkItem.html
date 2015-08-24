@@ -1,0 +1,13 @@
+<md-card class="item">
+	<md-card-content>
+		<h4 class="title">{{ item.title }}</h4>
+		<p class="note">{{ item.note }}</p>
+		<md-input-container class="title" md-no-float>
+			<input ng-model="item.title" placeholder="Item">
+		</md-input-container>
+		<md-input-container class="note">
+			<label>Notes</label>
+			<input ng-model="item.note">
+		</md-input-container>
+	</md-card-content>
+</md-card>
