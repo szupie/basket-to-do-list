@@ -6,6 +6,8 @@ function bkListView() {
 	var directive = {
 		restrict: 'EA',
 		link: link,
+		controller: 'ItemsController',
+		controllerAs: 'Items'
 	};
 
 	return directive;
@@ -25,7 +27,7 @@ function bkListView() {
 			e.stopPropagation();
 		})
 
-		scope.$watch('Main.currentList.items[0]', function() {
+		scope.$watch('Items.getCurrentList().items[0]', function() {
 			var newItem = element[0].querySelector('bk-item');
 			if (newItem) {
 				deselectAll();
