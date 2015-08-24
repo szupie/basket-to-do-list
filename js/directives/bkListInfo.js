@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.directive('bkListInfo', bkListInfo);
 
-function bkListInfo() {
+function bkListInfo(allListsService) {
 	var directive = {
 		restrict: 'EA',
 		link: link,
@@ -16,8 +16,8 @@ function bkListInfo() {
 	return directive;
 
 	function link(scope, element, attrs) {
-		element.on('click', function(){
-			scope.$emit("currentListChanged", { list: scope.list });
+		element.on('click', function() {
+			scope.$apply(function() { allListsService.setCurrentList(scope.list) });
 		});
 	}
 }

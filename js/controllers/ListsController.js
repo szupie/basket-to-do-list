@@ -6,6 +6,8 @@ function ListsController(allListsService) {
 	
 	this.lists = allListsService.lists;
 
-	this.addList = allListsService.add;
+	this.addList = function() {
+		allListsService.setCurrentList(allListsService.add());
+	};
 
 }

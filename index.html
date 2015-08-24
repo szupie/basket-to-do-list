@@ -36,9 +36,9 @@
 		</md-sidenav>
 
 		<md-content bk-list-view ng-controller="ItemsController as Items">
-			<md-subheader>{{ Main.currentList.name }}</md-subheader>
+			<md-subheader>{{ Items.getCurrentList().name }}</md-subheader>
 			<md-list>
-				<md-list-item ng-repeat="item in Main.currentList.items">
+				<md-list-item ng-repeat="item in Items.getCurrentList().items">
 					<bk-item></bk-item>
 				</md-list-item>
 			</md-list>
