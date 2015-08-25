@@ -38,7 +38,7 @@
 			<md-subheader>{{ Items.getCurrentList().name }}</md-subheader>
 			<md-list>
 				<md-list-item ng-repeat="item in Items.getCurrentList().items">
-					<bk-item></bk-item>
+					<bk-item ng-controller="ItemController as Item"></bk-item>
 				</md-list-item>
 			</md-list>
 			<md-button class="md-fab" aria-label="New Item" ng-click="Items.addItem()">

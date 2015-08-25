@@ -1,13 +1,34 @@
-<md-card class="item">
+<md-card class="item" tabindex="0">
 	<md-card-content>
+
 		<h4 class="title">{{ item.title }}</h4>
-		<p class="note">{{ item.note }}</p>
 		<md-input-container class="title" md-no-float>
-			<input ng-model="item.title" placeholder="Item">
+			<input ng-model="item.title" placeholder="Item" tabindex="1">
 		</md-input-container>
+
+		<p class="note">{{ item.note }}</p>
 		<md-input-container class="note">
 			<label>Notes</label>
-			<input ng-model="item.note">
+			<input ng-model="item.note" tabindex="2">
 		</md-input-container>
+
+		<p class="assign" ng-show="item.assign && Item.editing !== 'assign'">{{ item.assign }}</p>
+		<md-input-container class="assign" ng-show="Item.editing === 'assign'">
+			<label>Assign to</label>
+			<input ng-model="item.assign">
+		</md-input-container>
+
+		<div class="actions">
+			<md-button aria-label="Record message" class="md-icon-button" tabindex="3">
+				<md-icon md-svg-src="img/mic.svg"></md-icon>
+			</md-button>
+			<md-button aria-label="Take photo" class="md-icon-button" tabindex="3">
+				<md-icon md-svg-src="img/camera.svg"></md-icon>
+			</md-button>
+			<md-button aria-label="Assign..." class="md-icon-button assign" tabindex="3">
+				<md-icon md-svg-src="img/face.svg"></md-icon>
+			</md-button>
+		</div>
+
 	</md-card-content>
 </md-card>

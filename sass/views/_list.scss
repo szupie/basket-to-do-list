@@ -8,12 +8,35 @@
 		width: 100%;
 		h4.title {
 			margin: 0;
+			margin-right: 1em;
+			max-width: calc(100% - 250px);
 		}
 		p.note {
-			margin-bottom: 0;
+			margin: 0;
+			line-height: 2em;
+			max-height: 2em;
+			max-width: calc(100% - 250px);
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
 		}
 		.title, .note {
 			padding: 0;
+		}
+		.note, .assign {
+			font-size: 0.75em;
+			font-weight: 200;
+		}
+		p.assign {
+			float: right;
+			margin-bottom: 0;
+			&::before {
+				content: 'Assigned to ';
+			}
+		}
+		md-input-container.assign {
+			width: 50%;
+			float: right;
 		}
 		&.editable {
 			h4.title, p.note {
@@ -24,9 +47,25 @@
 			md-input-container {
 				display: none;
 			}
+			md-card-content {
+				display: flex;
+				padding-right: 160px;
+			}
+		}
+		md-icon svg {
+			fill: #000;
+		}
+		.actions {
+			position: absolute;
+			top: 0;
+			right: 0;
+			button {
+				margin: 0;
+			}
 		}
 	}
 	md-card {
 		width: 100%;
+		position: relative;
 	}
 }
