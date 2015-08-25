@@ -1,4 +1,33 @@
 .lists.view {
-	button.add {
+	bk-list-info {
+		width: 100%;
+	}
+	.menu {
+		padding: 0;
+		opacity: 0;
+		transition: opacity 200ms;
+		button {
+			height: 25px;
+			line-height: 25px;
+			width: 25px;
+			min-height: 0;
+		}
+	}
+	md-list-item {
+		&:hover {
+			.menu {
+				opacity: 1;
+			}
+		}
+	}
+	h3 {
+		margin: 0;
+	}
+	.brief.description {
+		font-size: 0.75em;
+		font-weight: 200;
+		margin: 0;
+		overflow: hidden;
+		max-height: 3.75em;
 	}
 }

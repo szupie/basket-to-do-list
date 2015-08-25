@@ -1,0 +1,28 @@
+<div layout="row">
+	<h3 flex>{{ list.name }}</h3>
+	<span flex></span>
+	<md-menu md-position-mode="target-right target" layout-align="end start" class="menu">
+		<md-button aria-label="List options..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
+			<md-icon md-menu-origin md-svg-src="img/more.svg"></md-icon>
+		</md-button>
+		<md-menu-content width="3">
+			<md-menu-item>
+				<md-button ng-click="ctrl.announceClick($index)">
+					<div layout="row">
+						<p flex>Share...</p>
+						<md-icon md-menu-align-target md-svg-src="img/share.svg"></md-icon>
+					</div>
+				</md-button>
+			</md-menu-item>
+			<md-menu-item>
+				<md-button ng-click="ctrl.announceClick($index)">
+					<div layout="row">
+						<p flex>Delete</p>
+						<md-icon md-menu-align-target md-svg-src="img/delete.svg"></md-icon>
+					</div>
+				</md-button>
+			</md-menu-item>
+		</md-menu-content>
+	</md-menu>
+</div>
+<p class="brief description">{{ list.getDescription() }}</p>

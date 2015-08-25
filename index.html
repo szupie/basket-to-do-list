@@ -27,9 +27,8 @@
 				    </div>
 				</md-toolbar>
 				<md-list>
-					<md-list-item ng-repeat="list in Lists.lists" bk-list-info>
-						<h3>{{ list.name }}</h3>
-						<p>{{ list.id }}</p>
+					<md-list-item ng-repeat="list in Lists.lists">
+						<bk-list-info></bk-list-info>
 					</md-list-item>
 				</md-list>
 			</md-content>

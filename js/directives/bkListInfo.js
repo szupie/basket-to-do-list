@@ -6,11 +6,7 @@ function bkListInfo(allListsService) {
 	var directive = {
 		restrict: 'EA',
 		link: link,
-		transclude: true,
-		template: [
-				'<div ng-transclude>',
-				'</div>'
-			].join('')
+		templateUrl: './templates/bkListInfo.html'
 	};
 
 	return directive;

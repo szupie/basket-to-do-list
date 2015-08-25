@@ -9,10 +9,17 @@ function ListObject(ItemObject) {
 		this.name = name;
 		this.items = [];
 		this.addItem = addItem;
+		this.getDescription = getDescription;
 	}
 
 	function addItem() {
 		this.items.unshift(new ItemObject());
+	}
+
+	function getDescription() {
+		return this.items.map(function(item) { return item.title })
+						.filter(function(val) { return val; })// get non-empty items
+						.join(', ');
 	}
 
 	return listObject;
