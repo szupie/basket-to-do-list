@@ -15,13 +15,13 @@ function bkItem() {
 
 	function link(scope, element, attrs) {
 		element.on('click', function (e) {
-			scope.$apply(function() { deselect(); });
+			deselect();
 		});
 
 
 		element[0].querySelector('.actions button.assign').addEventListener('click', function() {
-			changeEdit('assign');
-			setTimeout(function(){ element[0].querySelector('.assign input').focus(); }, 100); // delay until element is shown
+			element.addClass("editable editing assign");
+			element[0].querySelector('md-input-container.assign input').focus();
 		});
 
 		element.find('md-input-container').on('click', function(e) {
@@ -31,20 +31,8 @@ function bkItem() {
 			e.stopPropagation();
 		});
 
-		scope.$watch(function() { return element.attr('class'); },
-			function() {
-				if (!element.hasClass('editable')) {
-					deselect();
-				}
-			}
-		);
-
-		function changeEdit(mode) {
-			scope.Item.edit(mode);
-		}
-
 		function deselect() {
-			scope.Item.deselect();
+			element.removeClass("editing assign");
 		}
 	}
 }

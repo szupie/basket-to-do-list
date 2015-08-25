@@ -12,8 +12,8 @@
 			<input ng-model="item.note" tabindex="2">
 		</md-input-container>
 
-		<p class="assign" ng-show="item.assign && Item.editing !== 'assign'">{{ item.assign }}</p>
-		<md-input-container class="assign" ng-show="Item.editing === 'assign'">
+		<p class="assign" ng-show="item.assign">{{ item.assign }}</p>
+		<md-input-container class="assign">
 			<label>Assign to</label>
 			<input ng-model="item.assign">
 		</md-input-container>

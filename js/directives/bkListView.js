@@ -38,7 +38,7 @@ function bkListView() {
 		});
 
 		function deselectAll() {
-			element.find('bk-item').removeClass("editable");
+			element.find('bk-item').removeClass("editable editing assign");
 		}
 
 		function isBkItemChild(node) {

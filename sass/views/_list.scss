@@ -11,16 +11,18 @@
 			margin-right: 1em;
 			max-width: calc(100% - 250px);
 		}
-		p.note {
+		p.note, p.assign {
 			margin: 0;
 			line-height: 2em;
 			max-height: 2em;
-			max-width: calc(100% - 250px);
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
 		}
-		.title, .note {
+		p.note {
+			max-width: calc(100% - 250px);
+		}
+		.title, .note, .assign {
 			padding: 0;
 		}
 		.note, .assign {
@@ -56,6 +58,18 @@
 						opacity: 0;
 					}
 				}
+			}
+		}
+		&.editing {
+			&.assign {
+				p.assign {
+					display: none;
+				}
+			}
+		}
+		&:not(.editing) {
+			md-input-container.assign {
+				display: none;
 			}
 		}
 		md-icon svg {
