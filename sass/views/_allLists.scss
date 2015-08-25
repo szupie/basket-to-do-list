@@ -5,7 +5,6 @@
 	}
 	.menu {
 		padding: 0;
-		opacity: 0;
 		transition: opacity 200ms;
 		button {
 			height: 25px;
@@ -15,9 +14,9 @@
 		}
 	}
 	md-list-item {
-		&:hover {
+		&:not(:hover) {
 			.menu {
-				opacity: 1;
+				opacity: 0;
 			}
 		}
 	}
