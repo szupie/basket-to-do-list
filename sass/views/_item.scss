@@ -5,6 +5,7 @@
 			margin: 0;
 			margin-right: 1em;
 			max-width: calc(100% - 250px);
+			font-weight: 400;
 		}
 		p.note, p.assign {
 			margin: 0;
@@ -75,6 +76,7 @@
 				display: none;
 			}
 			&:not(.assign).editable p.assign {
+				margin-top: 0.5em;
 				&::before {
 					content: 'Assigned to ';
 				}
@@ -102,6 +104,9 @@
 			button.done svg .done {
 				display: none;
 			}
+		}
+		&.done {
+			opacity: 0.4;
 		}
 	}
 }

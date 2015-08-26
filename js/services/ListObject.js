@@ -17,7 +17,7 @@ function ListObject(ItemObject) {
 	}
 
 	function getDescription() {
-		return this.items.map(function(item) { return item.title })
+		return this.items.map(function(item) { if (!item.done) return item.title })
 						.filter(function(val) { return val; })// get non-empty items
 						.join(', ');
 	}
