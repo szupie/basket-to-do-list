@@ -10,4 +10,6 @@ function ListsController(allListsService) {
 		allListsService.setCurrentList(allListsService.add());
 	};
 
+	this.currentList = allListsService.getCurrentList;
+
 }

@@ -27,7 +27,7 @@
 				    </div>
 				</md-toolbar>
 				<md-list>
-					<md-list-item ng-repeat="list in Lists.lists">
+					<md-list-item ng-repeat="list in Lists.lists" ng-class="{'selected': Lists.currentList().id == list.id}">
 						<bk-list-info></bk-list-info>
 					</md-list-item>
 				</md-list>
