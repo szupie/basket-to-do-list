@@ -51,4 +51,9 @@ body {
 		width: 100%;
 		position: relative;
 	}
+	button.md-fab {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+	}
 }
