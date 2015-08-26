@@ -41,18 +41,18 @@
 					<input ng-model="Items.getCurrentList().name" placeholder="List name">
 				</md-input-container>
 			</md-subheader>
-			<div class="list actions">
-				<md-button aria-label="Share..." ng-show="Items.getCurrentList()" class="share">
+			<div class="list actions" ng-show="Items.getCurrentList()">
+				<md-button aria-label="Share..." class="share">
 		            <md-icon md-svg-src="img/share.svg"></md-icon>
 					<md-tooltip>Share...</md-tooltip>
 		        </md-button>
-				<md-menu md-position-mode="target-right target" layout-align="end start" class="menu" ng-show="Items.getCurrentList()">
+				<md-menu md-position-mode="target-right target" layout-align="end start" class="list menu">
 					<md-button aria-label="List options..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<md-icon md-menu-origin md-svg-src="img/more.svg"></md-icon>
 					</md-button>
 					<md-menu-content width="3">
 						<md-menu-item>
-							<md-button ng-click="ctrl.announceClick($index)">
+							<md-button ng-click="makeTitleEditable()">
 								<div layout="row">
 									<p flex>Rename...</p>
 									<md-icon md-menu-align-target md-svg-src="img/edit.svg"></md-icon>
@@ -60,7 +60,7 @@
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
-							<md-button ng-click="ctrl.announceClick($index)">
+							<md-button class="delete">
 								<div layout="row">
 									<p flex>Delete</p>
 									<md-icon md-menu-align-target md-svg-src="img/delete.svg"></md-icon>
