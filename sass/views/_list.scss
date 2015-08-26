@@ -78,10 +78,20 @@
 		.actions {
 			position: absolute;
 			top: 0;
-			right: 0;
+			right: 60px;
 			transition: opacity 200ms;
 			button {
 				margin: 0;
+			}
+		}
+		button.done {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		&:not(.done) {
+			button.done svg .done {
+				display: none;
 			}
 		}
 	}

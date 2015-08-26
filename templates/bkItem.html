@@ -19,16 +19,20 @@
 		</md-input-container>
 
 		<div class="actions">
-			<md-button aria-label="Record message" class="md-icon-button" tabindex="3">
+			<md-button aria-label="Record message" class="md-icon-button" tabindex="4">
 				<md-icon md-svg-src="img/mic.svg"></md-icon>
 			</md-button>
-			<md-button aria-label="Take photo" class="md-icon-button" tabindex="3">
+			<md-button aria-label="Take photo" class="md-icon-button" tabindex="4">
 				<md-icon md-svg-src="img/camera.svg"></md-icon>
 			</md-button>
-			<md-button aria-label="Assign..." class="md-icon-button assign" tabindex="3">
+			<md-button aria-label="Assign..." class="md-icon-button assign" tabindex="4">
 				<md-icon md-svg-src="img/face.svg"></md-icon>
 			</md-button>
 		</div>
+
+		<md-button aria-label="Done" class="md-icon-button done" tabindex="3" ng-click="item.done = !item.done">
+			<md-icon md-svg-src="img/checkbox.svg"></md-icon>
+		</md-button>
 
 	</md-card-content>
 </md-card>

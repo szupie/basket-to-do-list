@@ -8,6 +8,7 @@ function ItemObject() {
 		this.title = '';
 		this.note = '';
 		this.assign = '';
+		this.done = false;
 	}
 
 	return itemObject;
