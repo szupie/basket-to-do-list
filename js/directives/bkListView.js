@@ -13,6 +13,8 @@ function bkListView() {
 	return directive;
 
 	function link(scope, element, attrs) {
+
+		// Click outside of items to exit edit mode
 		element.on('click', function(e) {
 			deselectAll();
 			if (e.target) {
@@ -23,10 +25,23 @@ function bkListView() {
 			}
 		});
 
+		// Prevent losing focus on button clicks
 		element.find('button').on('click', function(e) {
 			e.stopPropagation();
 		})
 
+		// Make title editable on click
+		element[0].querySelector('.md-subheader .name').addEventListener('click', function() {
+			element[0].querySelector('.md-subheader').classList.add('editable');
+			element[0].querySelector('.md-subheader input').focus();
+		})
+
+		// Exit title edit mode on title input losing focus
+		element[0].querySelector('.md-subheader input').addEventListener('blur', function() {
+			element[0].querySelector('.md-subheader').classList.remove('editable');
+		})
+
+		// Switch focus to new item
 		scope.$watch('Items.getCurrentList().items[0]', function() {
 			// on new item added
 			var newItem = element[0].querySelector('bk-item');

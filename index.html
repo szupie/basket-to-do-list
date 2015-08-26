@@ -35,7 +35,12 @@
 		</md-sidenav>
 
 		<md-content bk-list-view ng-controller="ItemsController as Items">
-			<md-subheader>{{ Items.getCurrentList().name }}</md-subheader>
+			<md-subheader>
+				<span class="name">{{ Items.getCurrentList().name }}</span>
+				<md-input-container md-no-float>
+					<input ng-model="Items.getCurrentList().name" placeholder="List name">
+				</md-input-container>
+			</md-subheader>
 			<div class="list actions">
 				<md-button aria-label="Share..." ng-show="Items.getCurrentList()" class="share">
 		            <md-icon md-svg-src="img/share.svg"></md-icon>
