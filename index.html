@@ -36,6 +36,35 @@
 
 		<md-content bk-list-view ng-controller="ItemsController as Items">
 			<md-subheader>{{ Items.getCurrentList().name }}</md-subheader>
+			<div class="list actions">
+				<md-button aria-label="Share..." ng-show="Items.getCurrentList()" class="share">
+		            <md-icon md-svg-src="img/share.svg"></md-icon>
+					<md-tooltip>Share...</md-tooltip>
+		        </md-button>
+				<md-menu md-position-mode="target-right target" layout-align="end start" class="menu" ng-show="Items.getCurrentList()">
+					<md-button aria-label="List options..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin md-svg-src="img/more.svg"></md-icon>
+					</md-button>
+					<md-menu-content width="3">
+						<md-menu-item>
+							<md-button ng-click="ctrl.announceClick($index)">
+								<div layout="row">
+									<p flex>Rename...</p>
+									<md-icon md-menu-align-target md-svg-src="img/edit.svg"></md-icon>
+								</div>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ng-click="ctrl.announceClick($index)">
+								<div layout="row">
+									<p flex>Delete</p>
+									<md-icon md-menu-align-target md-svg-src="img/delete.svg"></md-icon>
+								</div>
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</div>
 			<md-list>
 				<md-list-item ng-repeat="item in Items.getCurrentList().items | orderBy:'done'">
 					<bk-item ng-controller="ItemController as Item"></bk-item>
