@@ -32,13 +32,16 @@
 		p.assign {
 			float: right;
 			margin-bottom: 0;
-			&::before {
-				content: 'Assigned to ';
-			}
+			font-style: italic;
 		}
-		md-input-container.assign {
-			width: 50%;
-			float: right;
+		md-input-container {
+			&.title {
+				max-width: calc(100% - 210px);
+			}
+			&.assign {
+				width: 50%;
+				float: right;
+			}
 		}
 		&.editable {
 			h4.title, p.note {
@@ -46,6 +49,11 @@
 			}
 		}
 		&:not(.editable) {
+			p.assign {
+				position: absolute;
+				right: 60px;
+				max-width: 150px;
+			}
 			md-input-container {
 				display: none;
 			}
@@ -71,6 +79,11 @@
 			md-input-container.assign {
 				display: none;
 			}
+			&:not(.assign).editable p.assign {
+				&::before {
+					content: 'Assigned to ';
+				}
+			}
 		}
 		md-icon svg {
 			fill: #000;
@@ -78,7 +91,9 @@
 		.actions {
 			position: absolute;
 			top: 0;
+			bottom: 1px;
 			right: 60px;
+			background-color: #fff;
 			transition: opacity 200ms;
 			button {
 				margin: 0;
