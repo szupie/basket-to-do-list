@@ -20,12 +20,29 @@ function bkItem() {
 		});
 
 		var listView = document.querySelector('[bk-list-view]');
+		var assignInput = element[0].querySelector('md-input-container.assign input');
 
 		// Enter assign mode
-		element[0].querySelector('.actions button.assign').addEventListener('click', function() {
+		function enterAssignMode() {
 			element.addClass("editable editing assign");
-			element[0].querySelector('md-input-container.assign input').focus();
+			setTimeout(function() { assignInput.focus(); }, 100); // delay to wait for classes to apply
 			listView.classList.add("hasEditableItem");
+		}
+		
+		// Reattach listener to buttons on screen size change
+		var assignButton = getAssignButton();
+		scope.$watch(function() { return scope.Main.$mdMedia('md'); }, function() {
+			if (assignButton) {
+				assignButton.removeEventListener('click', enterAssignMode);
+			}
+			assignButton = getAssignButton();
+			if (assignButton) {
+				assignButton.addEventListener('click', enterAssignMode);
+			}
+			// Prevent ending edit mode when clicking button
+			element.find('button').on('click', function(e) {
+				e.stopPropagation();
+			});
 		});
 
 		// Toggle item doneness
@@ -39,14 +56,14 @@ function bkItem() {
 		element.find('md-input-container').on('click', function(e) {
 			e.stopPropagation();
 		});
-		// Prevent ending edit mode when clicking button
-		element.find('button').on('click', function(e) {
-			e.stopPropagation();
-		});
 
 		// Leave custom edit mode
 		function deselect() {
 			element.removeClass("editing assign");
+		}
+
+		function getAssignButton() {
+			return element[0].querySelector('button.assign');
 		}
 	}
 }
