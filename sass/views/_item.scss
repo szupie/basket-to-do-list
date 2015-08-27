@@ -111,6 +111,34 @@
 		@media (max-width: $breakpoint-md - 1px) {
 			md-card-content {
 				flex-direction: column;
+				position: relative;
+			}
+			.actions {
+				display: none;
+			}
+			md-fab-speed-dial {
+				position: absolute;
+				top: 100%;
+				right: 0;
+				button.md-fab {
+					position: relative;
+					background-color: $colour-primary;
+					svg {
+						fill: #fff;
+					}
+				}
+				md-fab-actions {
+					position: absolute;
+					top: 0;
+					button.md-button:not([disabled]).md-focused {
+						background-color: lighten($colour-primary, 20%);
+					}
+				}
+			}
+			md-input-container {
+				&.title {
+					max-width: none;
+				}
 			}
 			&:not(.editable) {
 				md-card-content {
@@ -124,18 +152,13 @@
 					line-height: 1.25em;
 					white-space: normal;
 				}
+				md-fab-speed-dial {
+					display: none;
+				}
 			}
 			&.editable {
 				button.done {
 					display: none;
-				}
-			}
-			.actions {
-				display: none;
-			}
-			md-input-container {
-				&.title {
-					max-width: none;
 				}
 			}
 		}

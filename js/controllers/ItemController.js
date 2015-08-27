@@ -4,5 +4,6 @@ angular
 
 function ItemController() {
 	var vm = this;
+	vm.fabIsOpen = false;
 
 }

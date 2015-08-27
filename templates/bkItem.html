@@ -32,6 +32,27 @@
 				<md-tooltip>Assign...</md-tooltip>
 			</md-button>
 		</div>
+		<md-fab-speed-dial md-open="true" md-direction="down">
+			<md-fab-trigger>
+				<md-button aria-label="Menu" class="md-fab md-mini">
+					<md-icon md-svg-src="img/add.svg"></md-icon>
+				</md-button>
+				<md-fab-actions>
+					<md-button aria-label="Record message" class="md-fab md-raised md-mini" tabindex="4">
+						<md-icon md-svg-src="img/mic.svg"></md-icon>
+						<md-tooltip md-direction="left" md-visible="Item.fabIsOpen">Record message</md-tooltip>
+					</md-button>
+					<md-button aria-label="Take photo" class="md-fab md-raised md-mini" tabindex="4">
+						<md-icon md-svg-src="img/camera.svg"></md-icon>
+						<md-tooltip md-direction="left" md-visible="Item.fabIsOpen">Take photo</md-tooltip>
+					</md-button>
+					<md-button aria-label="Assign..." class="md-fab md-raised md-mini assign" tabindex="4">
+						<md-icon md-svg-src="img/face.svg"></md-icon>
+						<md-tooltip md-direction="left" md-visible="Item.fabIsOpen">Assign...</md-tooltip>
+					</md-button>
+				</md-fab-actions>
+			</md-fab-trigger>
+		</md-fab-speed-dial>
 
 		<md-button aria-label="Done" class="md-icon-button done" tabindex="3" ng-click="item.done = !item.done">
 			<md-icon md-svg-src="img/checkbox.svg"></md-icon>

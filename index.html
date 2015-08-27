@@ -15,16 +15,16 @@
 		<md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
 			<md-content class="lists view" ng-controller="ListsController as Lists">
 				<md-toolbar>
-				    <div class="md-toolbar-tools">
-				        <h2>
+					<div class="md-toolbar-tools">
+						<h2>
 							<span>Lists</span>
 						</h2>
 						<span flex></span>
 						<md-button aria-label="New List" ng-click="Lists.addList()" class="add">
-				            <md-icon md-svg-src="img/add.svg"></md-icon>
+							<md-icon md-svg-src="img/add.svg"></md-icon>
 							<md-tooltip>New List</md-tooltip>
-				        </md-button>
-				    </div>
+						</md-button>
+					</div>
 				</md-toolbar>
 				<md-list>
 					<md-list-item ng-repeat="list in Lists.lists" ng-class="{'selected': Lists.currentList().id == list.id}">
@@ -42,14 +42,14 @@
 				</md-input-container>
 			</md-subheader>
 			<md-button aria-label="Back to lists" class="back" ng-click="Main.toggleListsView()">
-	            <md-icon md-svg-src="img/back.svg"></md-icon>
+				<md-icon md-svg-src="img/back.svg"></md-icon>
 				<md-tooltip>Back to Lists</md-tooltip>
-	        </md-button>
+			</md-button>
 			<div class="list actions" ng-show="Items.getCurrentList()">
 				<md-button aria-label="Share..." class="share">
-		            <md-icon md-svg-src="img/share.svg"></md-icon>
+					<md-icon md-svg-src="img/share.svg"></md-icon>
 					<md-tooltip>Share...</md-tooltip>
-		        </md-button>
+				</md-button>
 				<md-menu md-position-mode="target-right target" layout-align="end start" class="list menu">
 					<md-button aria-label="List options..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<md-icon md-menu-origin md-svg-src="img/more.svg"></md-icon>
@@ -80,9 +80,9 @@
 				</md-list-item>
 			</md-list>
 			<md-button class="md-fab" aria-label="New Item" ng-click="Items.addItem()">
-	            <md-icon md-svg-src="img/add.svg"></md-icon>
+				<md-icon md-svg-src="img/add.svg"></md-icon>
 				<md-tooltip>New Item</md-tooltip>
-	        </md-button>
+			</md-button>
 		</md-content>
 
 		<script src="./node_modules/angular/angular.js"></script>
