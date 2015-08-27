@@ -23,7 +23,7 @@ function bkListView() {
 			if (e.target) {
 				var bkItem = isBkItemChild(e.target);
 				if (bkItem) {
-					bkItem.classList.add('editable');
+					makeItemEditable(bkItem);
 				}
 			}
 		});
@@ -49,7 +49,7 @@ function bkListView() {
 			var newItem = element[0].querySelector('bk-item');
 			if (newItem) {
 				deselectAll();
-				newItem.classList.add('editable');
+				makeItemEditable(newItem);
 				// focus title field by default; delay to wait for style to take effect
 				setTimeout(function() { newItem.querySelector('.title input').focus(); }, 100);
 			}
@@ -63,6 +63,12 @@ function bkListView() {
 
 		function deselectAll() {
 			element.find('bk-item').removeClass("editable editing assign");
+			element.removeClass('hasEditableItem');
+		}
+
+		function makeItemEditable(item) {
+			item.classList.add('editable');
+			element.addClass('hasEditableItem');
 		}
 
 		function isBkItemChild(node) {

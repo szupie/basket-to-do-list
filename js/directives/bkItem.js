@@ -19,15 +19,19 @@ function bkItem() {
 			deselect();
 		});
 
+		var listView = document.querySelector('[bk-list-view]');
+
 		// Enter assign mode
 		element[0].querySelector('.actions button.assign').addEventListener('click', function() {
 			element.addClass("editable editing assign");
 			element[0].querySelector('md-input-container.assign input').focus();
+			listView.classList.add("hasEditableItem");
 		});
 
 		// Toggle item doneness
 		element[0].querySelector('button.done').addEventListener('click', function() {
 			element.toggleClass("done").removeClass("editable");
+			listView.classList.remove("hasEditableItem");
 			deselect();
 		});
 

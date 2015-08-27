@@ -111,4 +111,9 @@ body {
 		min-height: 0;
 		min-width: 0;
 	}
+	[bk-list-view].hasEditableItem {
+		button.md-fab.newItem {
+			display: none;
+		}
+	}
 }
