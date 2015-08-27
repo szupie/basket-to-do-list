@@ -28,7 +28,7 @@
 				</md-toolbar>
 				<md-list>
 					<md-list-item ng-repeat="list in Lists.lists" ng-class="{'selected': Lists.currentList().id == list.id}">
-						<bk-list-info></bk-list-info>
+						<bk-list-info ng-click="Main.closeListsView()"></bk-list-info>
 					</md-list-item>
 				</md-list>
 			</md-content>
@@ -41,6 +41,10 @@
 					<input ng-model="Items.getCurrentList().name" placeholder="List name">
 				</md-input-container>
 			</md-subheader>
+			<md-button aria-label="Back to lists" class="back" ng-click="Main.toggleListsView()">
+	            <md-icon md-svg-src="img/back.svg"></md-icon>
+				<md-tooltip>Back to Lists</md-tooltip>
+	        </md-button>
 			<div class="list actions" ng-show="Items.getCurrentList()">
 				<md-button aria-label="Share..." class="share">
 		            <md-icon md-svg-src="img/share.svg"></md-icon>
