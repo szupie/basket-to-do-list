@@ -50,7 +50,8 @@ function bkListView() {
 			if (newItem) {
 				deselectAll();
 				newItem.classList.add('editable');
-				newItem.querySelector('.title input').focus(); // focus title field by default
+				// focus title field by default; delay to wait for style to take effect
+				setTimeout(function() { newItem.querySelector('.title input').focus(); }, 100);
 			}
 		});
 

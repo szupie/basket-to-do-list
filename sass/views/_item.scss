@@ -108,5 +108,36 @@
 		&.done {
 			opacity: 0.4;
 		}
+		@media (max-width: $breakpoint-md - 1px) {
+			md-card-content {
+				flex-direction: column;
+			}
+			&:not(.editable) {
+				md-card-content {
+					padding-right: 60px;
+				}
+				h4.title, p.note {
+					max-width: none;
+				}
+				p.note {
+					max-height: 9em;
+					line-height: 1.25em;
+					white-space: normal;
+				}
+			}
+			&.editable {
+				button.done {
+					display: none;
+				}
+			}
+			.actions {
+				display: none;
+			}
+			md-input-container {
+				&.title {
+					max-width: none;
+				}
+			}
+		}
 	}
 }
