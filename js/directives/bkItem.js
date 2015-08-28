@@ -20,7 +20,7 @@ function bkItem() {
 		});
 
 		var listView = document.querySelector('[bk-list-view]');
-		var assignInput = element[0].querySelector('md-input-container.assign input');
+		var assignInput;
 
 		// Enter assign mode
 		function enterAssignMode() {
@@ -52,10 +52,14 @@ function bkItem() {
 			deselect();
 		});
 
-		// Prevent ending edit mode when selecting input
-		element.find('md-input-container').on('click', function(e) {
-			e.stopPropagation();
-		});
+		setTimeout(function() {
+			// Delay querying for input until element created
+			assignInput = element[0].querySelector('md-autocomplete.assign input');
+			// Prevent ending edit mode when selecting input
+			element.find('md-input-container').on('click', function(e) {
+				e.stopPropagation();
+			});
+		}, 100);
 
 		// Leave custom edit mode
 		function deselect() {

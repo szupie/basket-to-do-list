@@ -13,10 +13,20 @@
 		</md-input-container>
 
 		<p class="assign" ng-show="item.assign">{{ item.assign }}</p>
-		<md-input-container class="assign">
-			<label>Assign to</label>
-			<input ng-model="item.assign">
-		</md-input-container>
+		<md-autocomplete
+			md-selected-item="item.assign"
+			md-item-text="name"
+			md-search-text="Item.nameSearchText"
+			md-search-text-change="item.assign = Item.nameSearchText"
+			md-items="name in Item.searchName(Item.nameSearchText)"
+			md-floating-label="Assign to"
+			md-autofocus="true"
+			md-autoselect="true"
+			class="assign">
+			<md-item-template>
+				<span md-highlight-text="Item.nameSearchText">&ldquo;{{name}}&rdquo;</span>
+			<md-item-template>
+		</md-autocomplete>
 
 		<div class="actions" ng-if="Main.$mdMedia('gt-md')">
 			<md-button aria-label="Record message" class="md-icon-button" tabindex="4">
@@ -34,7 +44,7 @@
 		</div>
 		<md-fab-speed-dial md-open="Item.fabIsOpen" md-direction="down" ng-if="!Main.$mdMedia('gt-md')">
 			<md-fab-trigger>
-				<md-button aria-label="Menu" class="md-fab md-mini">
+				<md-button aria-label="Menu" class="md-fab md-mini" tabindex="4">
 					<md-icon md-svg-src="img/add.svg"></md-icon>
 				</md-button>
 				<md-fab-actions>

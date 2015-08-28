@@ -93,12 +93,23 @@ body {
 @media (max-width: $breakpoint-md - 1px) {
 	.md-subheader {
 		background-color: $colour-primary;
+		.name {
+			color: #fff;
+			&:hover {
+				color: #000;
+			}
+		}
 	}
 	.md-subheader-content {
 		margin: 0 40px;
+		width: calc(100% - 80px);
 	}
 	.md-subheader-inner {
 		text-align: center;
+		overflow: hidden;
+	}
+	.list.actions button svg {
+		fill: #fff;
 	}
 	button.back {
 		position: fixed;
@@ -115,5 +126,17 @@ body {
 		button.md-fab.newItem {
 			display: none;
 		}
+	}
+}
+@media (max-width: $breakpoint-narrow) {
+	.md-subheader {
+		md-input-container {
+			&, input {
+				text-align: left;
+			}
+		}
+	}
+	.md-subheader-inner {
+		text-align: left;
 	}
 }

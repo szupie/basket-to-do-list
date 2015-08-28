@@ -34,6 +34,8 @@
 			&.title {
 				max-width: calc(100% - 210px);
 			}
+		}
+		md-autocomplete {
 			&.assign {
 				width: 50%;
 				float: right;
@@ -72,7 +74,7 @@
 			}
 		}
 		&:not(.editing) {
-			md-input-container.assign {
+			md-autocomplete.assign {
 				display: none;
 			}
 			&:not(.assign).editable p.assign {
