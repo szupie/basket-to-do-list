@@ -3,13 +3,15 @@ angular
 	.controller('ListsController', ListsController);
 
 function ListsController(allListsService) {
-	
-	this.lists = allListsService.lists;
 
-	this.addList = function() {
+	var vm = this;
+	
+	vm.lists = allListsService.lists;
+
+	vm.addList = function() {
 		allListsService.setCurrentList(allListsService.add());
 	};
 
-	this.currentList = allListsService.getCurrentList;
+	vm.currentList = allListsService.getCurrentList;
 
 }

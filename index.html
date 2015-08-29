@@ -27,7 +27,7 @@
 					</div>
 				</md-toolbar>
 				<md-list>
-					<md-list-item ng-repeat="list in Lists.lists" ng-class="{'selected': Lists.currentList().id == list.id}">
+					<md-list-item ng-repeat="list in Lists.lists" ng-class="{'selected': Lists.currentList().id == list.id}" ng-if="!list.deleting">
 						<bk-list-info ng-click="Main.closeListsView()"></bk-list-info>
 					</md-list-item>
 				</md-list>
@@ -68,7 +68,7 @@
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
-							<md-button class="delete">
+							<md-button class="delete" ng-click="Main.deleteListById(Items.getCurrentList().id)">
 								<div layout="row">
 									<p flex>Delete</p>
 									<md-icon md-menu-align-target md-svg-src="img/delete.svg"></md-icon>

@@ -2,10 +2,11 @@ angular
 	.module('app')
 	.controller('BasketController', BasketController);
 
-function BasketController($mdSidenav, $mdMedia, $scope) {
+function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast) {
 	var vm = this;
 	vm.toggleListsView = toggleListsView;
 	vm.closeListsView = closeListsView;
+	vm.deleteListById = deleteListById;
 
 	vm.$mdMedia = $mdMedia;
 	if (!vm.$mdMedia('lg')) {
@@ -18,5 +19,26 @@ function BasketController($mdSidenav, $mdMedia, $scope) {
 
 	function closeListsView() {
 		$mdSidenav('left').close();
+	}
+
+	var deleteId;
+	function deleteListById(id) {
+		// show undo toast
+		var deleteToast = $mdToast.simple().content('List Deleted').action('Undo').highlightAction(true);
+		$mdToast.show(deleteToast).then(function(response) {
+			if (response === 'ok') {
+				undoDelete();
+			}
+		});
+		// perform delete
+		allListsService.deleteList(id).then(function() {
+			$mdToast.hide();
+		});
+		// hide currently editing list
+		$mdSidenav('left').open();
+	}
+
+	function undoDelete() {
+		allListsService.cancelDelete();
 	}
 }

@@ -2,17 +2,21 @@ angular
 	.module('app')
 	.factory('allListsService', allListsService);
 
-function allListsService(ListObject) {
+function allListsService(ListObject, $q) {
 
 	var lists = [];
-	var currentListIndex = undefined;
+	var currentListId = undefined;
+	var deleteTimer;
+	var deleteDefer;
+	var deletingId;
 
 	return {
 		add: add,
 		lists: lists,
-		currentListIndex: currentListIndex,
 		setCurrentList: setCurrentList,
-		getCurrentList: getCurrentList
+		getCurrentList: getCurrentList,
+		deleteList: deleteList,
+		cancelDelete: cancelDelete
 	};
 
 	function add() {
@@ -27,19 +31,51 @@ function allListsService(ListObject) {
 		return (Math.floor(Math.random()*Math.pow(36,length)).toString(36)).slice(-length);
 	}
 
-	function findListById(id) {
+	function findListIndexById(id) {
 		for (var i=0; i<lists.length; i++) {
-			if (lists.id === id) {
+			if (lists[i].id === id) {
 				return i;
 			}
 		}
 	}
 
+	function deleteList(id) {
+		// Set list status for deletion
+		var index = findListIndexById(id);
+		if (index >= 0) {
+			lists[index].deleting = true;
+			currentListId = '';
+		}
+		// delete delay
+		deletingId = id;
+		deleteDefer = $q.defer();
+		deleteTimer = setTimeout(function() {
+			// get index again, as it may have changed
+			var index = findListIndexById(id);
+			if (index >= 0) {
+				lists.splice(index, 1);
+				deleteDefer.resolve('deleted');
+			} else {
+				deleteDefer.reject('listNotFound');
+			}
+		}, 5000);
+		return deleteDefer.promise;
+	}
+
+	function cancelDelete() {
+		clearTimeout(deleteTimer);
+		var index = findListIndexById(deletingId);
+		if (index >= 0) {
+			lists[index].deleting = false;
+		}
+		deleteDefer.reject('deleteCancelled');
+	}
+
 	function setCurrentList(list) {
 		if (typeof list === 'number') {
-			currentListIndex = list;
+			currentListId = findListIndexById(list);
 		} else if (typeof list === 'object') {
-			currentListIndex = lists.indexOf(list);
+			currentListId = list.id;
 		} else {
 			console.warn('unknown input for list: '+ typeof list);
 			console.warn(list);
@@ -48,9 +84,9 @@ function allListsService(ListObject) {
 
 	function getCurrentList() {
 		try {
-			return lists[currentListIndex];
+			return lists[findListIndexById(currentListId)];
 		} catch(e) {
-			console.warn('List not found. Index: '+currentListIndex);
+			console.warn('List not found. ID: '+currentListId);
 			console.warn(lists);
 			return false;
 		}
