@@ -79,7 +79,7 @@
 				</md-menu>
 			</div>
 			<md-list>
-				<md-list-item ng-repeat="item in Items.getCurrentList().items | orderBy:'done'">
+				<md-list-item ng-repeat="item in Items.getCurrentList().items | orderBy:'done'" ng-if="!item.deleting">
 					<bk-item ng-controller="ItemController as Item"></bk-item>
 				</md-list-item>
 			</md-list>

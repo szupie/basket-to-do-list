@@ -4,7 +4,8 @@ angular
 
 function ItemObject() {
 
-	var itemObject = function() {
+	var itemObject = function(id) {
+		this.id = id;
 		this.title = '';
 		this.note = '';
 		this.assign = '';

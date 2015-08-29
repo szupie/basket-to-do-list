@@ -8,7 +8,8 @@ function allListsService(ListObject, $q) {
 	var currentListId = undefined;
 	var deleteTimer;
 	var deleteDefer;
-	var deletingId;
+	var deletingListId;
+	var deletingItemId;
 
 	return {
 		add: add,
@@ -16,6 +17,7 @@ function allListsService(ListObject, $q) {
 		setCurrentList: setCurrentList,
 		getCurrentList: getCurrentList,
 		deleteList: deleteList,
+		deleteItem: deleteItem,
 		cancelDelete: cancelDelete
 	};
 
@@ -47,7 +49,7 @@ function allListsService(ListObject, $q) {
 			currentListId = '';
 		}
 		// delete delay
-		deletingId = id;
+		deletingListId = id;
 		deleteDefer = $q.defer();
 		deleteTimer = setTimeout(function() {
 			// get index again, as it may have changed
@@ -58,15 +60,50 @@ function allListsService(ListObject, $q) {
 			} else {
 				deleteDefer.reject('listNotFound');
 			}
+			deletingListId = undefined;
+		}, 5000);
+		return deleteDefer.promise;
+	}
+
+	function deleteItem(id) {
+		// Set list status for deletion
+		var index = getCurrentList().getItemIndexById(id);
+		if (index >= 0) {
+			getCurrentList().items[index].deleting = true;
+		}
+		// delete delay
+		deletingItemId = id;
+		deletingListId = getCurrentList().id; // store list id in case current list is changed
+		deleteDefer = $q.defer();
+		deleteTimer = setTimeout(function() {
+			// get index again, as it may have changed
+			var index = getCurrentList().getItemIndexById(id);
+			if (index >= 0) {
+				getCurrentList().items.splice(index, 1);
+				deleteDefer.resolve('deleted');
+			} else {
+				deleteDefer.reject('listNotFound');
+			}
+			deletingItemId = undefined;
 		}, 5000);
 		return deleteDefer.promise;
 	}
 
 	function cancelDelete() {
 		clearTimeout(deleteTimer);
-		var index = findListIndexById(deletingId);
-		if (index >= 0) {
-			lists[index].deleting = false;
+		if (deletingItemId) {
+			var list = lists[findListIndexById(deletingListId)];
+			var index = list.getItemIndexById(deletingId);
+			if (index >= 0) {
+				list.items[index].deleting = false;
+			}
+			deletingItemId = undefined;
+		} else {
+			var index = findListIndexById(deletingId);
+			if (index >= 0) {
+				lists[index].deleting = false;
+			}
+			deletingListId = undefined;
 		}
 		deleteDefer.reject('deleteCancelled');
 	}

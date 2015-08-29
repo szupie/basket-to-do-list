@@ -44,17 +44,12 @@
 				float: right;
 			}
 		}
-		&.editable {
+		&.editable:not(.done) {
 			h4.title, p.note {
 				display: none;
 			}
 		}
-		&:not(.editable) {
-			p.assign {
-				position: absolute;
-				right: 60px;
-				max-width: 150px;
-			}
+		&.done, &:not(.editable) {
 			md-input-container {
 				display: none;
 			}
@@ -62,6 +57,15 @@
 				display: flex;
 				padding-right: 160px;
 				min-height: calc(1em + 2px);
+			}
+		}
+		&:not(.editable), &.done {
+			p.assign {
+				position: absolute;
+				right: 60px;
+				max-width: 150px;
+			}
+			md-card-content {
 				&:not(:hover) {
 					.actions {
 						opacity: 0;
@@ -76,7 +80,7 @@
 				}
 			}
 		}
-		&:not(.editing) {
+		&:not(.editing):not(.done) {
 			md-autocomplete.assign {
 				display: none;
 			}
@@ -108,10 +112,27 @@
 			}
 		}
 		&.done {
-			opacity: 0.4;
+			&:not(.editable) {
+				opacity: 0.4;
+			}
+			.actions {
+				display: none;
+			}
+		}
+		button.delete {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -0.1em;
+			transform: translate(-50%, -50%);
+		}
+		&:not(.editable), &:not(.done) {
+			button.delete {
+				display: none;
+			}
 		}
 		@media (min-width: $breakpoint-md) {
-			&:not(.editable) {
+			&:not(.editable), &.done {
 				p.assign::before {
 					content: '';
 				}
@@ -151,7 +172,7 @@
 			p.assign {
 				float: none;
 			}
-			&:not(.editable) {
+			&:not(.editable):not(.done) {
 				md-card-content {
 					padding-right: 60px;
 				}
@@ -163,6 +184,8 @@
 					line-height: 1.25em;
 					white-space: normal;
 				}
+			}
+			&:not(.editable), &.done {
 				p.assign {
 					position: relative;
 					max-width: none;
