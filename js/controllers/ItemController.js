@@ -17,7 +17,6 @@ function ItemController(allListsService) {
 				names.push(name);
 			}
 		}
-		console.log(names);
 		// find matched names
 		var matches = names.filter(function(name) {
 			return name.toLowerCase().indexOf(query.toLowerCase()) === 0;

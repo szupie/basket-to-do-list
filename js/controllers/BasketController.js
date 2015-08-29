@@ -21,7 +21,6 @@ function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast) {
 		$mdSidenav('left').close();
 	}
 
-	var deleteId;
 	function deleteListById(id) {
 		// show undo toast
 		var deleteToast = $mdToast.simple().content('List Deleted').action('Undo').highlightAction(true);
