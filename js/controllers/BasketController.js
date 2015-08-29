@@ -8,6 +8,9 @@ function BasketController($mdSidenav, $mdMedia, $scope) {
 	vm.closeListsView = closeListsView;
 
 	vm.$mdMedia = $mdMedia;
+	if (!vm.$mdMedia('lg')) {
+		vm.listsViewOpen = true;
+	}
 
 	function toggleListsView() {
 		$mdSidenav('left').toggle();

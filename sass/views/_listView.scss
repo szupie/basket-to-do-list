@@ -77,7 +77,7 @@ body {
 		width: 100%;
 		position: relative;
 	}
-	button.md-fab {
+	button.md-fab.newItem {
 		position: fixed;
 		bottom: 24px;
 		right: 24px;
@@ -108,8 +108,16 @@ body {
 		text-align: center;
 		overflow: hidden;
 	}
-	.list.actions button svg {
-		fill: #fff;
+	[bk-list-view] .list.actions {
+		.share, .menu {
+			&, button {
+				height: 35px;
+				line-height: 35px;
+				svg {
+					fill: #fff;
+				}
+			}
+		}
 	}
 	button.back {
 		position: fixed;
@@ -126,6 +134,9 @@ body {
 		button.md-fab.newItem {
 			display: none;
 		}
+	}
+	[data-list-view-open=true] [bk-list-view] button.md-fab.newItem {
+		display: none;
 	}
 }
 @media (max-width: $breakpoint-narrow) {

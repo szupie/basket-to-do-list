@@ -17,11 +17,6 @@
 		&.selected {
 			background-color: darken($grey, 10%);
 		}
-		&:not(:hover) {
-			.menu {
-				opacity: 0;
-			}
-		}
 	}
 	h3 {
 		margin: 0;
@@ -35,4 +30,32 @@
 		overflow: hidden;
 		max-height: 3.75em;
 	}
+	button.md-fab {
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+	}
+}
+@media (min-width: $breakpoint-md) {
+	.lists.view {
+		button.md-fab {
+			display: none;
+		}
+		md-list-item:not(:hover) {
+			.menu {
+				opacity: 0;
+			}
+		}
+	}
+}
+@media (max-width: $breakpoint-md - 1px) {
+	button.add:not(.md-fab) {
+		display: none;
+	}
+	md-sidenav {
+		width: 100%;
+		max-width: none;
+	}
+}
+@media (max-width: $breakpoint-narrow) {
 }
