@@ -49,8 +49,17 @@
 	}
 }
 @media (max-width: $breakpoint-md - 1px) {
-	button.add:not(.md-fab) {
-		display: none;
+	.lists.view {
+		button.add:not(.md-fab) {
+			display: none;
+		}
+		.menu button {
+			height: 35px;
+			line-height: 35px;
+			width: 35px;
+			margin-top: -10px;
+			margin-right: -10px;
+		}
 	}
 	md-sidenav {
 		width: 100%;

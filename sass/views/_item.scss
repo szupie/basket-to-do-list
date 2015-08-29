@@ -127,6 +127,7 @@
 				top: 100%;
 				right: 0;
 				transform: translateY(-50%);
+				z-index: 1;
 				button.md-fab {
 					position: relative;
 					background-color: $colour-primary;
