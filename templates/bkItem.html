@@ -16,24 +16,26 @@
 		<md-autocomplete
 			md-selected-item="item.assign"
 			md-item-text="name"
-			md-search-text="Item.nameSearchText"
-			md-search-text-change="item.assign = Item.nameSearchText"
-			md-items="name in Item.searchName(Item.nameSearchText)"
+			md-search-text="nameSearchText"
+			md-search-text-change="item.assign = nameSearchText"
+			md-items="name in Items.searchName(nameSearchText)"
 			md-floating-label="Assign to"
 			md-autofocus="true"
 			md-autoselect="true"
 			class="assign">
 			<md-item-template>
-				<span md-highlight-text="Item.nameSearchText">&ldquo;{{name}}&rdquo;</span>
+				<span md-highlight-text="nameSearchText">&ldquo;{{name}}&rdquo;</span>
 			<md-item-template>
 		</md-autocomplete>
+
+		<img ng-src="{{item.photo}}" class="photo" />
 
 		<div class="actions" ng-if="Main.$mdMedia('gt-md')">
 			<md-button aria-label="Record message" class="md-icon-button" tabindex="4">
 				<md-icon md-svg-src="img/mic.svg"></md-icon>
 				<md-tooltip>Record message</md-tooltip>
 			</md-button>
-			<md-button aria-label="Take photo" class="md-icon-button" tabindex="4">
+			<md-button aria-label="Take photo" class="md-icon-button photo" tabindex="4">
 				<md-icon md-svg-src="img/camera.svg"></md-icon>
 				<md-tooltip>Take photo</md-tooltip>
 			</md-button>
@@ -42,7 +44,7 @@
 				<md-tooltip>Assign...</md-tooltip>
 			</md-button>
 		</div>
-		<md-fab-speed-dial md-open="Item.fabIsOpen" md-direction="down" ng-if="!Main.$mdMedia('gt-md')">
+		<md-fab-speed-dial md-open="fabIsOpen" md-direction="down" ng-if="!Main.$mdMedia('gt-md')">
 			<md-fab-trigger>
 				<md-button aria-label="Menu" class="md-fab md-mini" tabindex="4">
 					<md-icon md-svg-src="img/add.svg"></md-icon>
@@ -50,19 +52,21 @@
 				<md-fab-actions>
 					<md-button aria-label="Record message" class="md-fab md-raised md-mini" tabindex="4">
 						<md-icon md-svg-src="img/mic.svg"></md-icon>
-						<md-tooltip md-direction="left" md-visible="Item.fabIsOpen">Record message</md-tooltip>
+						<md-tooltip md-direction="left" md-visible="fabIsOpen">Record message</md-tooltip>
 					</md-button>
-					<md-button aria-label="Take photo" class="md-fab md-raised md-mini" tabindex="4">
+					<md-button aria-label="Take photo" class="md-fab md-raised md-mini photo" tabindex="4">
 						<md-icon md-svg-src="img/camera.svg"></md-icon>
-						<md-tooltip md-direction="left" md-visible="Item.fabIsOpen">Take photo</md-tooltip>
+						<md-tooltip md-direction="left" md-visible="fabIsOpen">Take photo</md-tooltip>
 					</md-button>
 					<md-button aria-label="Assign..." class="md-fab md-raised md-mini assign" tabindex="4">
 						<md-icon md-svg-src="img/face.svg"></md-icon>
-						<md-tooltip md-direction="left" md-visible="Item.fabIsOpen">Assign...</md-tooltip>
+						<md-tooltip md-direction="left" md-visible="fabIsOpen">Assign...</md-tooltip>
 					</md-button>
 				</md-fab-actions>
 			</md-fab-trigger>
 		</md-fab-speed-dial>
+
+		<input type="file" class="photo" accept="image/*" >
 
 		<md-button aria-label="Done" class="md-icon-button done" tabindex="3" ng-click="item.done = !item.done">
 			<md-icon md-svg-src="img/checkbox.svg"></md-icon>

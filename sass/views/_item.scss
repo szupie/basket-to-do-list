@@ -101,6 +101,12 @@
 				margin: 0;
 			}
 		}
+		input.photo {
+			display: none;
+		}
+		img.photo {
+			max-width: 100%;
+		}
 		button.done {
 			position: absolute;
 			top: 0;

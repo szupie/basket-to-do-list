@@ -7,8 +7,8 @@ function bkItem() {
 		restrict: 'EA',
 		link: link,
 		templateUrl: './templates/bkItem.html',
-		controller: 'ItemController',
-		controllerAs: 'Item'
+		controller: 'ItemsController',
+		controllerAs: 'Items'
 	};
 
 	return directive;
@@ -29,9 +29,32 @@ function bkItem() {
 			setTimeout(function() { assignInput.focus(); }, 100); // delay to wait for classes to apply
 			listView.classList.add("hasEditableItem");
 		}
+
+		var photoInput = element[0].querySelector('input.photo');
+		function photoPrompt() {
+			photoInput.click();
+		}
+		photoInput.addEventListener('change', function(e) {
+			var file = e.target.files[0];
+			if (file) {
+				var reader = new FileReader();
+				reader.onloadend = function() {
+					scope.Items.getPhoto(attrs.itemId, reader.result);
+				}
+				reader.readAsDataURL(file);
+			}
+		});
+
+		// Toggle item doneness
+		element[0].querySelector('button.done').addEventListener('click', function() {
+			element.toggleClass("done").removeClass("editable");
+			listView.classList.remove("hasEditableItem");
+			deselect();
+		});
 		
 		// Reattach listener to buttons on screen size change
 		var assignButton = getAssignButton();
+		var photoButton = getPhotoButton();
 		scope.$watch(function() { return scope.Main.$mdMedia('md'); }, function() {
 			if (assignButton) {
 				assignButton.removeEventListener('click', enterAssignMode);
@@ -39,6 +62,13 @@ function bkItem() {
 			assignButton = getAssignButton();
 			if (assignButton) {
 				assignButton.addEventListener('click', enterAssignMode);
+			}
+			if (photoButton) {
+				photoButton.removeEventListener('click', photoPrompt);
+			}
+			photoButton = getPhotoButton();
+			if (photoButton) {
+				photoButton.addEventListener('click', photoPrompt);
 			}
 			// Prevent ending edit mode when clicking button
 			element.find('button').on('click', function(e) {
@@ -48,13 +78,6 @@ function bkItem() {
 			element.find('button').on('touchstart', function(e) {
 				document.activeElement.blur();
 			});
-		});
-
-		// Toggle item doneness
-		element[0].querySelector('button.done').addEventListener('click', function() {
-			element.toggleClass("done").removeClass("editable");
-			listView.classList.remove("hasEditableItem");
-			deselect();
 		});
 
 		setTimeout(function() {
@@ -73,6 +96,9 @@ function bkItem() {
 
 		function getAssignButton() {
 			return element[0].querySelector('button.assign');
+		}
+		function getPhotoButton() {
+			return element[0].querySelector('button.photo');
 		}
 	}
 }

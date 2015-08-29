@@ -77,12 +77,15 @@ function allListsService(ListObject, $q) {
 		deleteDefer = $q.defer();
 		deleteTimer = setTimeout(function() {
 			// get index again, as it may have changed
-			var index = getCurrentList().getItemIndexById(id);
-			if (index >= 0) {
-				getCurrentList().items.splice(index, 1);
-				deleteDefer.resolve('deleted');
-			} else {
-				deleteDefer.reject('listNotFound');
+			var listIndex = findListIndexById(deletingListId);
+			if (listIndex >= 0) {
+				var index = lists[listIndex].getItemIndexById(id);
+				if (index >= 0) {
+					lists[listIndex].items.splice(index, 1);
+					deleteDefer.resolve('deleted');
+				} else {
+					deleteDefer.reject('listNotFound');
+				}
 			}
 			deletingItemId = undefined;
 		}, 5000);
