@@ -108,35 +108,38 @@ body {
 		text-align: center;
 		overflow: hidden;
 	}
-	[bk-list-view] .list.actions {
-		.share, .menu {
-			&, button {
-				height: 35px;
-				line-height: 35px;
-				svg {
-					fill: #fff;
+	[bk-list-view] {
+		&.hasEditableItem {
+			button.md-fab.newItem {
+				display: none;
+			}
+		}
+		button.md-fab.newItem {
+			bottom: 16px;
+			right: 16px;
+		}
+		button.back {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 10;
+			height: 35px;
+			line-height: 35px;
+			width: 35px;
+			min-height: 0;
+			min-width: 0;
+		}
+		.list.actions {
+			.share, .menu {
+				&, button {
+					height: 35px;
+					line-height: 35px;
+					svg {
+						fill: #fff;
+					}
 				}
 			}
 		}
-	}
-	button.back {
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 10;
-		height: 35px;
-		line-height: 35px;
-		width: 35px;
-		min-height: 0;
-		min-width: 0;
-	}
-	[bk-list-view].hasEditableItem {
-		button.md-fab.newItem {
-			display: none;
-		}
-	}
-	[data-list-view-open=true] [bk-list-view] button.md-fab.newItem {
-		display: none;
 	}
 }
 @media (max-width: $breakpoint-narrow) {

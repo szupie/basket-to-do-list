@@ -10,7 +10,7 @@
 		<title>Basket</title>
 	</head>
 
-	<body ng-app="app" ng-controller="BasketController as Main" layout="row" data-list-view-open="{{Main.listsViewOpen}}">
+	<body ng-app="app" ng-controller="BasketController as Main" layout="row">
 
 		<md-sidenav md-component-id="left" class="md-sidenav-left" md-is-open="Main.listsViewOpen" md-is-locked-open="$mdMedia('gt-md')">
 			<md-content class="lists view" ng-controller="ListsController as Lists">
