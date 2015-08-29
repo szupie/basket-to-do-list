@@ -44,14 +44,16 @@ function bkListView() {
 		});
 
 		// Switch focus to new item
-		scope.$watch('Items.getCurrentList().items[0]', function() {
-			// on new item added
+		element[0].querySelector('button.newItem').addEventListener('click', function(e) {
 			var newItem = element[0].querySelector('bk-item');
 			if (newItem) {
 				deselectAll();
 				makeItemEditable(newItem);
+				var title = newItem.querySelector('.title input');
 				// focus title field by default; delay to wait for style to take effect
-				setTimeout(function() { newItem.querySelector('.title input').focus(); }, 100);
+				setTimeout(function() { title.focus(); }, 100);
+				title.select(); // iOS fix
+				window.scroll(1,1); // iOS fix
 			}
 		});
 

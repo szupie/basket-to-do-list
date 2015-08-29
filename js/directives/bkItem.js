@@ -25,6 +25,7 @@ function bkItem() {
 		// Enter assign mode
 		function enterAssignMode() {
 			element.addClass("editable editing assign");
+			assignInput.select(); // iOS fix
 			setTimeout(function() { assignInput.focus(); }, 100); // delay to wait for classes to apply
 			listView.classList.add("hasEditableItem");
 		}
@@ -42,6 +43,10 @@ function bkItem() {
 			// Prevent ending edit mode when clicking button
 			element.find('button').on('click', function(e) {
 				e.stopPropagation();
+			});
+			// iOS fix to deselect button
+			element.find('button').on('touchstart', function(e) {
+				document.activeElement.blur();
 			});
 		});
 

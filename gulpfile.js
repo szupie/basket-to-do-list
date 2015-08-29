@@ -14,8 +14,8 @@ gulp.task('watch', function () {
 gulp.task('js', function() {  
 	return gulp.src('js/**/*.js')
 				.pipe(sourcemaps.init())
-				.pipe(concat('app.js'))
 				.pipe(ngAnnotate())
+				.pipe(concat('app.js'))
 				//.pipe(uglify())
 				.pipe(sourcemaps.write())
 				.pipe(gulp.dest('build'))

@@ -29,6 +29,9 @@
 			float: right;
 			margin-bottom: 0;
 			font-style: italic;
+			&::before {
+				content: 'Assigned to ';
+			}
 		}
 		md-input-container {
 			&.title {
@@ -79,9 +82,6 @@
 			}
 			&:not(.assign).editable p.assign {
 				margin-top: 0.5em;
-				&::before {
-					content: 'Assigned to ';
-				}
 			}
 		}
 		md-icon svg {
@@ -109,6 +109,13 @@
 		}
 		&.done {
 			opacity: 0.4;
+		}
+		@media (min-width: $breakpoint-md) {
+			&:not(.editable) {
+				p.assign::before {
+					content: '';
+				}
+			}
 		}
 		@media (max-width: $breakpoint-md - 1px) {
 			md-card-content {
@@ -139,6 +146,9 @@
 					max-width: none;
 				}
 			}
+			p.assign {
+				float: none;
+			}
 			&:not(.editable) {
 				md-card-content {
 					padding-right: 60px;
@@ -150,6 +160,11 @@
 					max-height: 9em;
 					line-height: 1.25em;
 					white-space: normal;
+				}
+				p.assign {
+					position: relative;
+					max-width: none;
+					right: auto;
 				}
 				md-fab-speed-dial {
 					display: none;
