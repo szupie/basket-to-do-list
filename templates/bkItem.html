@@ -30,24 +30,24 @@
 
 		<div class="media">
 			<img ng-src="{{item.photo}}" class="photo" ng-if="item.photo" />
-			<md-button aria-label="Play Message" class="md-icon-button audio" ng-if="true">
+			<md-button aria-label="Play Message" class="md-icon-button audio" ng-if="item.audio">
 				<md-icon md-svg-src="img/volume.svg"></md-icon>
 				<md-tooltip>Play Message</md-tooltip>
 			</md-button>
 		</div>
 
 		<div class="actions" ng-if="Main.$mdMedia('gt-md')">
-			<md-button aria-label="Record message" class="md-icon-button" tabindex="4">
+			<!--<md-button aria-label="Record message" class="md-icon-button" tabindex="4">
 				<md-icon md-svg-src="img/mic.svg"></md-icon>
 				<md-tooltip>Record message</md-tooltip>
-			</md-button>
-			<md-button aria-label="Take photo" class="md-icon-button photo" tabindex="4">
-				<md-icon md-svg-src="img/camera.svg"></md-icon>
-				<md-tooltip>Take photo</md-tooltip>
-			</md-button>
+			</md-button>-->
 			<md-button aria-label="Assign..." class="md-icon-button assign" tabindex="4">
 				<md-icon md-svg-src="img/face.svg"></md-icon>
 				<md-tooltip>Assign...</md-tooltip>
+			</md-button>
+			<md-button aria-label="Take photo" class="md-icon-button photo" tabindex="4" ng-if="Main.support.fileReader">
+				<md-icon md-svg-src="img/camera.svg"></md-icon>
+				<md-tooltip>Take photo</md-tooltip>
 			</md-button>
 		</div>
 		<md-fab-speed-dial md-open="fabIsOpen" md-direction="down" ng-if="!Main.$mdMedia('gt-md')">
@@ -56,17 +56,17 @@
 					<md-icon md-svg-src="img/add.svg"></md-icon>
 				</md-button>
 				<md-fab-actions>
-					<md-button aria-label="Record message" class="md-fab md-raised md-mini" tabindex="4">
+					<!--<md-button aria-label="Record message" class="md-fab md-raised md-mini" tabindex="4">
 						<md-icon md-svg-src="img/mic.svg"></md-icon>
 						<md-tooltip md-direction="left" md-visible="fabIsOpen">Record message</md-tooltip>
-					</md-button>
-					<md-button aria-label="Take photo" class="md-fab md-raised md-mini photo" tabindex="4">
-						<md-icon md-svg-src="img/camera.svg"></md-icon>
-						<md-tooltip md-direction="left" md-visible="fabIsOpen">Take photo</md-tooltip>
-					</md-button>
+					</md-button>-->
 					<md-button aria-label="Assign..." class="md-fab md-raised md-mini assign" tabindex="4">
 						<md-icon md-svg-src="img/face.svg"></md-icon>
 						<md-tooltip md-direction="left" md-visible="fabIsOpen">Assign...</md-tooltip>
+					</md-button>
+					<md-button aria-label="Take photo" class="md-fab md-raised md-mini photo" tabindex="4" ng-if="Main.support.fileReader">
+						<md-icon md-svg-src="img/camera.svg"></md-icon>
+						<md-tooltip md-direction="left" md-visible="fabIsOpen">Take photo</md-tooltip>
 					</md-button>
 				</md-fab-actions>
 			</md-fab-trigger>

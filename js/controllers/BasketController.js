@@ -2,11 +2,12 @@ angular
 	.module('app')
 	.controller('BasketController', BasketController);
 
-function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast) {
+function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, support) {
 	var vm = this;
 	vm.toggleListsView = toggleListsView;
 	vm.closeListsView = closeListsView;
 	vm.deleteListById = deleteListById;
+	vm.support = support;
 
 	vm.$mdMedia = $mdMedia;
 	if (!vm.$mdMedia('lg')) {
