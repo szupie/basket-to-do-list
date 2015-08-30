@@ -147,6 +147,9 @@
 					margin-top: 1em;
 					transform: none;
 					float: left;
+					position: relative;
+					top: auto;
+					right: auto;
 					& + button.audio {
 						margin-top: 1em;
 					}

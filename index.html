@@ -50,7 +50,7 @@
 				<md-tooltip>Back to Lists</md-tooltip>
 			</md-button>
 			<div class="list actions" ng-show="Items.getCurrentList()">
-				<md-button aria-label="Share..." class="share">
+				<md-button aria-label="Share..." class="share" ng-click="Main.shareList(Items.getCurrentList().id)">
 					<md-icon md-svg-src="img/share.svg"></md-icon>
 					<md-tooltip>Share...</md-tooltip>
 				</md-button>

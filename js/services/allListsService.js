@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.factory('allListsService', allListsService);
 
-function allListsService(ListObject, $q) {
+function allListsService(ListObject, $q, emailService) {
 
 	var lists = [];
 	var currentListId = undefined;
@@ -20,7 +20,10 @@ function allListsService(ListObject, $q) {
 		deleteItem: deleteItem,
 		cancelDelete: cancelDelete,
 		localRetrieve: localRetrieve,
-		localSave: localSave
+		localSave: localSave,
+		importList: importList,
+		exportList: exportList,
+		emailList: emailList,
 	};
 
 	function add() {
@@ -41,6 +44,17 @@ function allListsService(ListObject, $q) {
 				return i;
 			}
 		}
+	}
+
+	function getTextOnlyList(id) {
+		var list = lists[findListIndexById(id)];
+		var textOnlyList = [];
+		for (var i=0; i<list.items.length; i++) {
+			textOnlyList.push(list.items[i]);
+			textOnlyList[i].audio = '';
+			textOnlyList[i].photo = '';
+		}
+		return textOnlyList;
 	}
 
 	function deleteList(id) {
@@ -132,6 +146,23 @@ function allListsService(ListObject, $q) {
 			console.warn(lists);
 			return false;
 		}
+	}
+
+	function importList(data) {
+		var list = emailService.decode(data);
+		if (findListIndexById(list.id) < 0) {
+			var list = new ListObject(list.id, list.name);
+			list.items = list.items;
+			lists.push(list);
+		}
+	}
+
+	function exportList(listId) {
+		return emailService.encode(getTextOnlyList(listId));
+	}
+
+	function emailList(listId) {
+		return emailService.writeEmail(lists[findListIndexById(listId)]);
 	}
 
 	function localRetrieve() {
