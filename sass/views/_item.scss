@@ -58,7 +58,7 @@
 			}
 			md-card-content {
 				display: flex;
-				padding-right: 160px;
+				padding-right: 230px;
 				min-height: calc(1em + 2px);
 			}
 		}
@@ -66,7 +66,7 @@
 			p.assign {
 				position: absolute;
 				right: 60px;
-				max-width: 150px;
+				max-width: 100px;
 			}
 			md-card-content {
 				&:not(:hover) {
@@ -113,13 +113,15 @@
 		.media {
 			position: absolute;
 			right: 60px;
-			top: 50%;
+			top: 0;
 			transition: top 200ms, bottom 200ms;
 			img.photo {
 				max-height: 3em;
 				max-width: 3em;
-				float: left;
-				transform: translateY(-50%);
+				position: absolute;
+				top: 1.5em;
+				right: 1.5em;
+				transform: translate(50%, -50%);
 				transition: top 200ms;
 			}
 			button.audio {
@@ -210,6 +212,12 @@
 			}
 		}
 		@media (min-width: $breakpoint-md) {
+			h4.title {
+				max-height: 1.5em;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
 			&:not(.editable), &.done {
 				p.assign::before {
 					content: '';
@@ -227,7 +235,7 @@
 			}
 			&:not(.editable) {
 				.media {
-					right: 210px;
+					right: 170px;
 				}
 			}
 			&.editable {
@@ -300,6 +308,9 @@
 			&:not(.editable):not(.done) {
 				md-card-content {
 					padding-right: 60px;
+				}
+				h4.title {
+					margin-right: 3em;
 				}
 				h4.title, p.note {
 					max-width: none;
