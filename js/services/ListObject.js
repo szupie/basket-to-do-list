@@ -20,7 +20,7 @@ function ListObject(ItemObject) {
 
 	function getItemIndexById(id) {
 		for (var i=0; i<this.items.length; i++) {
-			if (this.items[i].id === id) {
+			if (this.items[i].id == id) {
 				return i;
 			}
 		}

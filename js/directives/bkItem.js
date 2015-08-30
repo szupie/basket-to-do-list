@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.directive('bkItem', bkItem);
 
-function bkItem() {
+function bkItem($q) {
 	var directive = {
 		restrict: 'EA',
 		link: link,
@@ -31,15 +31,30 @@ function bkItem() {
 		}
 
 		var photoInput = element[0].querySelector('input.photo');
+		var fileDefer;
+		var waitingInput = 0;
 		function photoPrompt() {
 			photoInput.click();
+			photoInput.value = null;
+			fileDefer = $q.defer();
+			scope.Items.getPhoto(attrs.itemId, fileDefer.promise);
+		}
+		function photoPromptClose() {
+			if (waitingInput > 0) {
+				waitingInput = 0;
+				fileDefer.notify('noImage');
+			} else {
+				waitingInput++;
+				fileDefer.notify('getting');
+			}
 		}
 		photoInput.addEventListener('change', function(e) {
 			var file = e.target.files[0];
+			waitingInput = 0;
 			if (file) {
 				var reader = new FileReader();
 				reader.onloadend = function() {
-					scope.Items.getPhoto(attrs.itemId, reader.result);
+					fileDefer.resolve(reader.result);
 				}
 				reader.readAsDataURL(file);
 			}
@@ -65,10 +80,12 @@ function bkItem() {
 			}
 			if (photoButton) {
 				photoButton.removeEventListener('click', photoPrompt);
+				document.removeEventListener("visibilitychange", photoPromptClose);
 			}
 			photoButton = getPhotoButton();
 			if (photoButton) {
 				photoButton.addEventListener('click', photoPrompt);
+				document.addEventListener("visibilitychange", photoPromptClose);
 			}
 			// Prevent ending edit mode when clicking button
 			element.find('button').on('click', function(e) {
