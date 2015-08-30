@@ -9,6 +9,9 @@ function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, suppo
 	vm.deleteListById = deleteListById;
 	vm.support = support;
 
+	allListsService.localRetrieve();
+	setInterval(allListsService.localSave, 5000);
+
 	vm.$mdMedia = $mdMedia;
 	if (!vm.$mdMedia('lg')) {
 		vm.listsViewOpen = true;

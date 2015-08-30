@@ -18,7 +18,9 @@ function allListsService(ListObject, $q) {
 		getCurrentList: getCurrentList,
 		deleteList: deleteList,
 		deleteItem: deleteItem,
-		cancelDelete: cancelDelete
+		cancelDelete: cancelDelete,
+		localRetrieve: localRetrieve,
+		localSave: localSave
 	};
 
 	function add() {
@@ -130,5 +132,21 @@ function allListsService(ListObject, $q) {
 			console.warn(lists);
 			return false;
 		}
+	}
+
+	function localRetrieve() {
+		var retrieved = localStorage.getItem('Baskets');
+		if (retrieved) {
+			var parsed = JSON.parse(retrieved);
+			for (var i=0; i<parsed.length; i++) {
+				var list = new ListObject(parsed[i].id, parsed[i].name);
+				list.items = parsed[i].items;
+				lists.push(list);
+			}
+		}
+	}
+
+	function localSave() {
+		localStorage.setItem('Baskets', JSON.stringify(lists));
 	}
 }
