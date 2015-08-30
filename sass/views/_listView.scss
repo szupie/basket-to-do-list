@@ -81,6 +81,12 @@ body {
 		position: fixed;
 		bottom: 24px;
 		right: 24px;
+		&.md-button {
+			background-color: $colour-primary;
+			&:not([disabled]).md-focused {
+				background-color: lighten($colour-primary, 15%);
+			}
+		}
 	}
 }
 // large screen
@@ -117,12 +123,6 @@ body {
 		button.md-fab.newItem {
 			bottom: 16px;
 			right: 16px;
-			&.md-button {
-				background-color: $colour-primary;
-				&:not([disabled]).md-focused {
-					background-color: lighten($colour-primary, 15%);
-				}
-			}
 		}
 		button.back {
 			position: fixed;
