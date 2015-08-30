@@ -28,7 +28,13 @@
 			<md-item-template>
 		</md-autocomplete>
 
-		<img ng-src="{{item.photo}}" class="photo" />
+		<div class="media">
+			<md-button aria-label="Play Message" class="md-icon-button audio" ng-if="item.audio">
+				<md-icon md-svg-src="img/volume.svg"></md-icon>
+				<md-tooltip>Play Message</md-tooltip>
+			</md-button>
+			<img ng-src="{{item.photo}}" class="photo" ng-if="item.photo" />
+		</div>
 
 		<div class="actions" ng-if="Main.$mdMedia('gt-md')">
 			<md-button aria-label="Record message" class="md-icon-button" tabindex="4">

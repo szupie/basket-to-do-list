@@ -104,8 +104,43 @@
 		input.photo {
 			display: none;
 		}
-		img.photo {
-			max-width: 100%;
+		.media {
+			position: absolute;
+			right: 60px;
+			top: 0;
+			img.photo {
+				max-height: 3em;
+				max-width: 3em;
+				float: right;
+			}
+			button.audio {
+				float: right;
+				md-icon {
+					height: 100%;
+					width: 100%;
+					svg {
+						fill: $colour-primary-dark;
+					}
+				}
+			}
+		}
+		&.editable {
+			.media {
+				position: relative;
+				right: auto;
+				top: auto;
+				img.photo {
+					max-height: calc(100% - 6em);
+					max-width: calc(100% - 6em);
+					float: none;
+				}
+				button.audio {
+					float: right;
+					margin-bottom: 2em;
+					height: 6em;
+					width: 6em;
+				}
+			}
 		}
 		button.done {
 			position: absolute;

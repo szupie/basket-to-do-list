@@ -13,6 +13,12 @@
 			min-height: 0;
 		}
 	}
+	md-toolbar {
+		color: #fff;
+	}
+	.md-toolbar-tools {
+		background-color: $colour-secondary;
+	}
 	md-list-item {
 		&.selected {
 			background-color: darken($grey, 10%);
@@ -34,6 +40,12 @@
 		position: fixed;
 		bottom: 16px;
 		right: 16px;
+		&.md-button {
+			background-color: $colour-secondary;
+			&:not([disabled]).md-focused {
+				background-color: lighten($colour-secondary, 15%);
+			}
+		}
 	}
 }
 @media (min-width: $breakpoint-md) {
