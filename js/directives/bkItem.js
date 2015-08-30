@@ -30,6 +30,7 @@ function bkItem($q) {
 			listView.classList.add("hasEditableItem");
 		}
 
+		// Photo select
 		var photoInput = element[0].querySelector('input.photo');
 		var fileDefer;
 		var waitingInput = 0;
@@ -58,6 +59,14 @@ function bkItem($q) {
 				}
 				reader.readAsDataURL(file);
 			}
+		});
+		element[0].querySelector('img.photo').addEventListener('click', function(e) {
+			e.stopPropagation();
+			element.toggleClass('photoView');
+		});
+		element[0].querySelector('.media').addEventListener('click', function(e) {
+			e.stopPropagation();
+			element.removeClass('photoView');
 		});
 
 		// Toggle item doneness
