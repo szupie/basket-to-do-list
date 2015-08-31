@@ -29,7 +29,7 @@
 		</md-autocomplete>
 
 		<div class="media">
-			<img ng-src="{{item.photo}}" class="photo" />
+			<img ng-src="{{item.photo}}" class="photo" ng-show="item.photo" />
 			<md-button aria-label="Play Message" class="md-icon-button audio" ng-if="item.audio">
 				<md-icon md-svg-src="img/volume.svg"></md-icon>
 				<md-tooltip>Play Message</md-tooltip>

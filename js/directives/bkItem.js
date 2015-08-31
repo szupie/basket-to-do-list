@@ -40,7 +40,17 @@ function bkItem($q) {
 			photoInput.click();
 			photoInput.value = null;
 		}
-		function photoPromptClose() {
+		function onPhotoPromptOpen() {
+			if (element[0].contains(document.activeElement) && fileDefer) {
+				fileDefer.notify('getting');
+			}
+		}
+		function onPhotoPromptClose() {
+			if (fileDefer) {
+				fileDefer.notify('noImage');
+			}
+		}
+		function onPhotoPromptChange() {
 			if (waitingInput > 0) {
 				waitingInput = 0;
 				if (fileDefer) fileDefer.notify('noImage');
@@ -80,6 +90,9 @@ function bkItem($q) {
 		// Reattach listener to buttons on screen size change
 		var assignButton = getAssignButton();
 		var photoButton = getPhotoButton();
+		window.addEventListener('blur', onPhotoPromptOpen);
+		window.addEventListener('focus', onPhotoPromptClose);
+		document.addEventListener("visibilitychange", onPhotoPromptChange);
 		scope.$watch(function() { return scope.Main.$mdMedia('md'); }, function() {
 			if (assignButton) {
 				assignButton.removeEventListener('click', enterAssignMode);
@@ -90,12 +103,10 @@ function bkItem($q) {
 			}
 			if (photoButton) {
 				photoButton.removeEventListener('click', photoPrompt);
-				document.removeEventListener("visibilitychange", photoPromptClose);
 			}
 			photoButton = getPhotoButton();
 			if (photoButton) {
 				photoButton.addEventListener('click', photoPrompt);
-				document.addEventListener("visibilitychange", photoPromptClose);
 			}
 			// Prevent ending edit mode when clicking button
 			element.find('button').on('click', function(e) {

@@ -2,11 +2,13 @@ md-dialog.share {
 	md-dialog-content {
 		> p {
 			width: 2em;
-			margin: 0.5em auto;
+			margin: 2em auto;
 			padding: 0.5em 1em;
 			border: 1px solid rgba(0, 0, 0, 0.1);
 			border-left: none;
 			border-right: none;
+			font-style: italic;
+			color: rgba(0, 0, 0, 0.25);
 		}
 	}
 	p {
