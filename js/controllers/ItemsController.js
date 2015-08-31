@@ -65,8 +65,8 @@ function ItemsController(allListsService, $mdToast, $mdMedia) {
 			if (update === 'getting') {
 				list.items[index].photo = loadingIcon;
 			} else if (update === 'noImage') {
-				if (list.items[index].photo === loadingIcon) {
-					list.items[index].photo = '';
+				if (list.items[index].photo == loadingIcon) {
+					list.items[index].photo = undefined;
 				}
 			}
 		});

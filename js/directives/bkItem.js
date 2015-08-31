@@ -41,14 +41,12 @@ function bkItem($q) {
 			photoInput.value = null;
 		}
 		function photoPromptClose() {
-			if (fileDefer) {
-				if (waitingInput > 0) {
-					waitingInput = 0;
-					fileDefer.notify('noImage');
-				} else {
-					waitingInput++;
-					fileDefer.notify('getting');
-				}
+			if (waitingInput > 0) {
+				waitingInput = 0;
+				if (fileDefer) fileDefer.notify('noImage');
+			} else {
+				waitingInput++;
+				if (fileDefer) fileDefer.notify('getting');
 			}
 		}
 		photoInput.addEventListener('change', function(e) {
