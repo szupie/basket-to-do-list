@@ -29,7 +29,7 @@ function shareService() {
 			results.push("--------------------");
 			results.push("");
 		}
-		var body = results.join('%0A'); // new line
-		return 'mailto:?body='+body;
+		var body = results.join('\n'); // new line
+		return 'mailto:?body='+encodeURIComponent(body);
 	}
 }

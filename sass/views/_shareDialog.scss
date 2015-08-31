@@ -1,0 +1,26 @@
+md-dialog.share {
+	md-dialog-content {
+		> p {
+			width: 2em;
+			margin: 0.5em auto;
+			padding: 0.5em 1em;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			border-left: none;
+			border-right: none;
+		}
+	}
+	p {
+		text-align: center;
+	}
+	a {
+		color: $colour-secondary;
+		text-decoration: none;
+		word-break: break-all;
+		md-icon {
+			margin-right: 0.5em;
+			svg {
+				fill: $colour-secondary;
+			}
+		}
+	}
+}

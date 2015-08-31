@@ -24,15 +24,21 @@ function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, suppo
 	window.importBasketList = allListsService.importList;
 
 	function shareList(list, e) {
-		$mdDialog.show(
-			$mdDialog.alert()
-					.clickOutsideToClose(true)
-					.targetEvent(e)
-					.title('Share '+list.name)
-					.content('View and edit this list on any device at '+shareService.getLink(list))
-					.ok('Send list as email')
-		);
-		//window.open(shareService.writeEmail(list));
+		var link = shareService.getLink(list);
+		var email = shareService.writeEmail(list);
+		$mdDialog.show({
+			templateUrl: './templates/shareDialog.html',
+			locals: {
+				url: link,
+				email: email
+			},
+			clickOutsideToClose: true,
+			targetEvent: e,
+			controller: function($scope, url, email) {
+				$scope.url = url;
+				$scope.email = email;
+			}
+		});
 	}
 
 	// sidenav behaviour
