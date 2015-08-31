@@ -10,7 +10,10 @@ function allListsService(ListObject, $q, idGenerator, $rootScope, $timeout) {
 	var deleteDefer;
 	var deletingListId;
 	var deletingItemId;
-	var fireRef = new Firebase("https://torrid-fire-6266.firebaseio.com/");
+	var fireRef;
+	if (window.Firebase) {
+		fireRef = new Firebase("https://torrid-fire-6266.firebaseio.com/");
+	}
 	localRetrieve();
 
 	return {
@@ -172,7 +175,6 @@ function allListsService(ListObject, $q, idGenerator, $rootScope, $timeout) {
 	}
 
 	function importList(id) {
-		var listRef = fireRef.child(id);
 		var list;
 		var localIndex = findListIndexById(id);
 		if (localIndex < 0) {
@@ -181,26 +183,29 @@ function allListsService(ListObject, $q, idGenerator, $rootScope, $timeout) {
 		} else {
 			list = lists[localIndex];
 		}
-		listRef.once('value', function(snapshot) {
-			if (snapshot.val()) { // if list exists
-				list.name = snapshot.val().name;
-				angular.forEach(snapshot.val().items, function(value, key) {
-					updateItem(value);
-				});
+		if (window.Firebase) {
+			var listRef = fireRef.child(id);
+			listRef.once('value', function(snapshot) {
+				if (snapshot.val()) { // if list exists
+					list.name = snapshot.val().name;
+					angular.forEach(snapshot.val().items, function(value, key) {
+						updateItem(value);
+					});
 
-				listRef.child('name').on('value', function(snapshot) {
-					list.name = snapshot.val();
-					$rootScope.$broadcast('firebaseSync');
-				});
-				listRef.child('items').on('child_changed', function(snapshot) {
-					updateItem(snapshot.val())
-					$rootScope.$broadcast('firebaseSync');
-				});
-			} else {
-				list.name = 'New List '+lists.length;
-			}
-			$rootScope.$broadcast('firebaseSync');
-		});
+					listRef.child('name').on('value', function(snapshot) {
+						list.name = snapshot.val();
+						$rootScope.$broadcast('firebaseSync');
+					});
+					listRef.child('items').on('child_changed', function(snapshot) {
+						updateItem(snapshot.val())
+						$rootScope.$broadcast('firebaseSync');
+					});
+				} else {
+					list.name = 'New List '+lists.length;
+				}
+				$rootScope.$broadcast('firebaseSync');
+			});
+		}
 		function updateItem(item) {
 			var localItemIndex = list.getItemIndexById(item.id);
 			if (localItemIndex < 0) {
@@ -250,9 +255,11 @@ function allListsService(ListObject, $q, idGenerator, $rootScope, $timeout) {
 	function syncCurrentList() {
 		if (getCurrentList()) {
 			var items = getDataOnlyList(getCurrentList().id);
-			fireRef.child(getCurrentList().id).child('name').set(getCurrentList().name);
-			for (var i=0; i<items.length; i++) {
-				fireRef.child(getCurrentList().id).child('items').child(items[i].id).update(items[i]);
+			if (window.Firebase) {
+				fireRef.child(getCurrentList().id).child('name').set(getCurrentList().name);
+				for (var i=0; i<items.length; i++) {
+					fireRef.child(getCurrentList().id).child('items').child(items[i].id).update(items[i]);
+				}
 			}
 		}
 	}
