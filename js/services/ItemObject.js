@@ -10,6 +10,7 @@ function ItemObject() {
 		this.note = '';
 		this.assign = '';
 		this.done = false;
+		this.lastEdited = Date.now();
 	}
 
 	return itemObject;

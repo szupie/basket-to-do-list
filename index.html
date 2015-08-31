@@ -50,7 +50,7 @@
 				<md-tooltip>Back to Lists</md-tooltip>
 			</md-button>
 			<div class="list actions" ng-show="Items.getCurrentList()">
-				<md-button aria-label="Share..." class="share" ng-click="Main.shareList(Items.getCurrentList().id)">
+				<md-button aria-label="Share..." class="share" ng-click="Main.shareList(Items.getCurrentList(), $event)">
 					<md-icon md-svg-src="img/share.svg"></md-icon>
 					<md-tooltip>Share...</md-tooltip>
 				</md-button>
@@ -79,7 +79,7 @@
 				</md-menu>
 			</div>
 			<md-list>
-				<md-list-item ng-repeat="item in Items.getCurrentList().items | orderBy:'done'" ng-if="!item.deleting">
+				<md-list-item ng-repeat="item in Items.getCurrentList().items | orderBy:['done', '-lastEdited']" ng-if="!item.deleting">
 					<bk-item data-item-id="{{item.id}}"></bk-item>
 				</md-list-item>
 			</md-list>
@@ -93,6 +93,8 @@
 		<script src="./node_modules/angular-aria/angular-aria.js"></script>
 		<script src="./node_modules/angular-animate/angular-animate.js"></script>
 		<script src="./node_modules/angular-material/angular-material.js"></script>
+		<script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
 		<script src="./build/app.js"></script>
 
 	</body>

@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.controller('BasketController', BasketController);
 
-function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, support) {
+function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, support, $scope, $mdDialog, shareService) {
 	var vm = this;
 	vm.toggleListsView = toggleListsView;
 	vm.closeListsView = closeListsView;
@@ -11,16 +11,27 @@ function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, suppo
 	vm.support = support;
 
 	// load/save data
-	allListsService.localRetrieve();
-	setInterval(allListsService.localSave, 5000);
+	allListsService.syncAll();
+	setInterval(allListsService.syncAll, 5000);
 
-	if (location.hash.substring(1).indexOf('import=') === 0) {
-		allListsService.importList(location.hash.substring(8));
+	$scope.$on('firebaseSync', function() {
+		$scope.$apply();
+	});
+
+	if (location.hash.substring(1).indexOf('list=') === 0) {
+		allListsService.importList(location.hash.substring(6));
 	}
 	window.importBasketList = allListsService.importList;
 
-	function shareList(id) {
-		window.open(allListsService.emailList(id));
+	function shareList(list, e) {
+		$mdDialog.show(
+			$mdDialog.alert()
+					.clickOutsideToClose(true)
+					.targetEvent(e)
+					.title('Share '+list.name)
+					.content('View and edit this list on any device at '+shareService.getLink(list))
+		);
+		//window.open(shareService.writeEmail(list));
 	}
 
 	// sidenav behaviour

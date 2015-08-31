@@ -35,18 +35,20 @@ function bkItem($q) {
 		var fileDefer;
 		var waitingInput = 0;
 		function photoPrompt() {
-			photoInput.click();
-			photoInput.value = null;
 			fileDefer = $q.defer();
 			scope.Items.getPhoto(attrs.itemId, fileDefer.promise);
+			photoInput.click();
+			photoInput.value = null;
 		}
 		function photoPromptClose() {
-			if (waitingInput > 0) {
-				waitingInput = 0;
-				fileDefer.notify('noImage');
-			} else {
-				waitingInput++;
-				fileDefer.notify('getting');
+			if (fileDefer) {
+				if (waitingInput > 0) {
+					waitingInput = 0;
+					fileDefer.notify('noImage');
+				} else {
+					waitingInput++;
+					fileDefer.notify('getting');
+				}
 			}
 		}
 		photoInput.addEventListener('change', function(e) {
@@ -56,6 +58,7 @@ function bkItem($q) {
 				var reader = new FileReader();
 				reader.onloadend = function() {
 					fileDefer.resolve(reader.result);
+					fileDefer = undefined;
 				}
 				reader.readAsDataURL(file);
 			}

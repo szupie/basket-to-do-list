@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.factory('ListObject', ListObject);
 
-function ListObject(ItemObject) {
+function ListObject(ItemObject, idGenerator) {
 
 	var listObject = function(id, name) {
 		this.id = id;
@@ -12,18 +12,18 @@ function ListObject(ItemObject) {
 		this.getItemIndexById = getItemIndexById;
 		this.getDescription = getDescription;
 	}
-	var nextItemId = 0;
 
 	function addItem() {
-		this.items.unshift(new ItemObject(nextItemId++));
+		this.items.unshift(new ItemObject(idGenerator.get(4)));
 	}
 
 	function getItemIndexById(id) {
 		for (var i=0; i<this.items.length; i++) {
-			if (this.items[i].id == id) {
+			if (this.items[i].id === id) {
 				return i;
 			}
 		}
+		return -1;
 	}
 
 	function getDescription() {

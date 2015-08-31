@@ -2,7 +2,7 @@ angular
 	.module('app')
 	.factory('allListsService', allListsService);
 
-function allListsService(ListObject, $q, emailService) {
+function allListsService(ListObject, $q, idGenerator, $rootScope) {
 
 	var lists = [];
 	var currentListId = undefined;
@@ -10,6 +10,8 @@ function allListsService(ListObject, $q, emailService) {
 	var deleteDefer;
 	var deletingListId;
 	var deletingItemId;
+	var fireRef = new Firebase("https://torrid-fire-6266.firebaseio.com/");
+	localRetrieve();
 
 	return {
 		add: add,
@@ -19,23 +21,15 @@ function allListsService(ListObject, $q, emailService) {
 		deleteList: deleteList,
 		deleteItem: deleteItem,
 		cancelDelete: cancelDelete,
-		localRetrieve: localRetrieve,
-		localSave: localSave,
+		syncAll: syncAll,
 		importList: importList,
-		exportList: exportList,
-		emailList: emailList,
 	};
 
 	function add() {
 		lists.unshift(
-			new ListObject(getUniqId(), "New List "+(lists.length+1))
+			new ListObject(idGenerator.get(8), "New List "+(lists.length+1))
 		);
 		return lists[0];
-	}
-
-	function getUniqId() {
-		var length = 8;
-		return (Math.floor(Math.random()*Math.pow(36,length)).toString(36)).slice(-length);
 	}
 
 	function findListIndexById(id) {
@@ -44,15 +38,36 @@ function allListsService(ListObject, $q, emailService) {
 				return i;
 			}
 		}
+		return -1;
 	}
 
-	function getTextOnlyList(id) {
+	function updateItemData(item, values) {
+		item.id = values.id;
+		item.title = values.title;
+		item.note = values.note;
+		item.assign = values.assign;
+		item.audio = values.audio;
+		item.photo = values.photo;
+		item.done = values.done;
+		item.lastEdited = values.lastEdited;
+	}
+
+	function getDataOnlyItem(original) {
+		var item = {};
+		updateItemData(item, original);
+		for (var key in item) {
+			if (item[key] === null || item[key] === undefined) {
+				delete item[key];
+			}
+		}
+		return item;
+	}
+
+	function getDataOnlyList(id) {
 		var list = lists[findListIndexById(id)];
 		var textOnlyList = [];
 		for (var i=0; i<list.items.length; i++) {
-			textOnlyList.push(list.items[i]);
-			textOnlyList[i].audio = '';
-			textOnlyList[i].photo = '';
+			textOnlyList.push(getDataOnlyItem(list.items[i]));
 		}
 		return textOnlyList;
 	}
@@ -148,21 +163,41 @@ function allListsService(ListObject, $q, emailService) {
 		}
 	}
 
-	function importList(data) {
-		var list = emailService.decode(data);
-		if (findListIndexById(list.id) < 0) {
-			var list = new ListObject(list.id, list.name);
-			list.items = list.items;
-			lists.push(list);
+	function importList(id) {
+		var listRef = fireRef.child(id);
+		var list;
+		var localIndex = findListIndexById(id);
+		if (localIndex < 0) {
+			lists.unshift(new ListObject(id, 'Synchronising...'))
+			list = lists[0];
+		} else {
+			list = lists[localIndex];
 		}
-	}
-
-	function exportList(listId) {
-		return emailService.encode(getTextOnlyList(listId));
-	}
-
-	function emailList(listId) {
-		return emailService.writeEmail(lists[findListIndexById(listId)]);
+		listRef.once('value', function(snapshot) {
+			list.name = snapshot.val().name;
+			angular.forEach(snapshot.val().items, function(value, key) {
+				updateItem(value);
+			});
+			$rootScope.$broadcast('firebaseSync');
+		});
+		listRef.child('name').on('value', function(snapshot) {
+			list.name = snapshot.val();
+			$rootScope.$broadcast('firebaseSync');
+		});
+		listRef.child('items').on('child_changed', function(snapshot) {
+			updateItem(snapshot.val())
+			$rootScope.$broadcast('firebaseSync');
+		});
+		function updateItem(item) {
+			var localItemIndex = list.getItemIndexById(item.id);
+			if (localItemIndex < 0) {
+				list.items.push(getDataOnlyItem(item));
+			} else {
+				if (list.items[localItemIndex] != item) {
+					updateItemData(list.items[localItemIndex], item);
+				}
+			}
+		}
 	}
 
 	function localRetrieve() {
@@ -173,11 +208,33 @@ function allListsService(ListObject, $q, emailService) {
 				var list = new ListObject(parsed[i].id, parsed[i].name);
 				list.items = parsed[i].items;
 				lists.push(list);
+				importList(list.id);
 			}
 		}
 	}
 
 	function localSave() {
-		localStorage.setItem('Baskets', JSON.stringify(lists));
+		var json = JSON.stringify(lists);
+		if (localStorage.getItem('Baskets') !== json) {
+			localStorage.setItem('Baskets', json);
+			return true;
+		}
+		return false;
+	}
+
+	function syncAll() {
+		if (localSave()) {
+			syncCurrentList();
+		}
+	}
+
+	function syncCurrentList() {
+		if (getCurrentList()) {
+			var items = getDataOnlyList(getCurrentList().id);
+			fireRef.child(getCurrentList().id).child('name').set(getCurrentList().name);
+			for (var i=0; i<items.length; i++) {
+				fireRef.child(getCurrentList().id).child('items').child(items[i].id).update(items[i]);
+			}
+		}
 	}
 }

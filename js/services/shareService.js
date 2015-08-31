@@ -1,25 +1,21 @@
 angular
 	.module('app')
-	.factory('emailService', emailService);
+	.factory('shareService', shareService);
 
-function emailService() {
+function shareService() {
 
 	return {
-		decode: decode,
-		encode: encode,
+		getLink: getLink,
 		writeEmail: writeEmail,
 	};
 
-	function encode(object) {
-		return JSON.stringify(object);
-	}
-
-	function decode(data) {
-		return JSON.parse(data);
+	function getLink(list) {
+		return location.origin+location.pathname+"#list="+list.id;
 	}
 
 	function writeEmail(list) {
 		var results = [];
+		results.push("Add this list to your Basket at "+getLink(list));
 		results.push("====================");
 		results.push(list.name);
 		results.push("====================");
