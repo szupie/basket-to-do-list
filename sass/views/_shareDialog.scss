@@ -17,7 +17,9 @@ md-dialog.share {
 	a {
 		color: $colour-secondary;
 		text-decoration: none;
-		word-break: break-all;
+		&.url {
+			word-break: break-all;
+		}
 		md-icon {
 			margin-right: 0.5em;
 			svg {
