@@ -30,6 +30,7 @@ function BasketController($mdSidenav, $mdMedia, allListsService, $mdToast, suppo
 					.targetEvent(e)
 					.title('Share '+list.name)
 					.content('View and edit this list on any device at '+shareService.getLink(list))
+					.ok('Send list as email')
 		);
 		//window.open(shareService.writeEmail(list));
 	}

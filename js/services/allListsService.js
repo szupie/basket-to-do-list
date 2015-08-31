@@ -53,6 +53,7 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 		}
 		item.done = values.done;
 		item.lastEdited = values.lastEdited;
+		item.deleting = values.deleting;
 	}
 
 	function getDataOnlyItem(original) {
@@ -75,7 +76,7 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 		return textOnlyList;
 	}
 
-	function deleteList(id) {
+	function deleteList(id, immediate) {
 		// Set list status for deletion
 		var index = findListIndexById(id);
 		if (index >= 0) {
@@ -83,6 +84,8 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 			currentListId = '';
 		}
 		// delete delay
+		var delay = 5000;
+		if (!immediate) delay = 0;
 		deletingListId = id;
 		deleteDefer = $q.defer();
 		deleteTimer = setTimeout(function() {
@@ -95,11 +98,11 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 				deleteDefer.reject('listNotFound');
 			}
 			deletingListId = undefined;
-		}, 5000);
+		}, delay);
 		return deleteDefer.promise;
 	}
 
-	function deleteItem(id) {
+	function deleteItem(id, immediate) {
 		// Set list status for deletion
 		var index = getCurrentList().getItemIndexById(id);
 		if (index >= 0) {
@@ -109,6 +112,8 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 		deletingItemId = id;
 		deletingListId = getCurrentList().id; // store list id in case current list is changed
 		deleteDefer = $q.defer();
+		var delay = 5000;
+		if (!immediate) delay = 0;
 		deleteTimer = setTimeout(function() {
 			// get index again, as it may have changed
 			var listIndex = findListIndexById(deletingListId);
@@ -122,7 +127,7 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 				}
 			}
 			deletingItemId = undefined;
-		}, 5000);
+		}, delay);
 		return deleteDefer.promise;
 	}
 
@@ -177,18 +182,23 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 			list = lists[localIndex];
 		}
 		listRef.once('value', function(snapshot) {
-			list.name = snapshot.val().name;
-			angular.forEach(snapshot.val().items, function(value, key) {
-				updateItem(value);
-			});
-			$rootScope.$broadcast('firebaseSync');
-		});
-		listRef.child('name').on('value', function(snapshot) {
-			list.name = snapshot.val();
-			$rootScope.$broadcast('firebaseSync');
-		});
-		listRef.child('items').on('child_changed', function(snapshot) {
-			updateItem(snapshot.val())
+			if (snapshot.val()) { // if list exists
+				list.name = snapshot.val().name;
+				angular.forEach(snapshot.val().items, function(value, key) {
+					updateItem(value);
+				});
+
+				listRef.child('name').on('value', function(snapshot) {
+					list.name = snapshot.val();
+					$rootScope.$broadcast('firebaseSync');
+				});
+				listRef.child('items').on('child_changed', function(snapshot) {
+					updateItem(snapshot.val())
+					$rootScope.$broadcast('firebaseSync');
+				});
+			} else {
+				list.name = 'New List '+lists.length;
+			}
 			$rootScope.$broadcast('firebaseSync');
 		});
 		function updateItem(item) {
@@ -208,10 +218,12 @@ function allListsService(ListObject, $q, idGenerator, $rootScope) {
 		if (retrieved) {
 			var parsed = JSON.parse(retrieved);
 			for (var i=0; i<parsed.length; i++) {
-				var list = new ListObject(parsed[i].id, parsed[i].name);
-				list.items = parsed[i].items;
-				lists.push(list);
-				importList(list.id);
+				if (!parsed[i].deleting) {
+					var list = new ListObject(parsed[i].id, parsed[i].name);
+					list.items = parsed[i].items;
+					lists.push(list);
+					importList(list.id);
+				}
 			}
 		}
 	}
