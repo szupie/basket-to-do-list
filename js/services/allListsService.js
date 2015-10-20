@@ -12,7 +12,7 @@ function allListsService(ListObject, $q, idGenerator, $rootScope, $timeout) {
 	var deletingItemId;
 	var fireRef;
 	if (window.Firebase) {
-		fireRef = new Firebase("https://torrid-fire-6266.firebaseio.com/");
+		fireRef = new Firebase("https://*****.firebaseio.com/");
 	}
 	localRetrieve();
 
