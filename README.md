@@ -1,4 +1,4 @@
-# basket-to-do-list
+# Basket
 A superior grocery shopping list application
 
 A to-do list with image support. Sync to a firebase database to share and edit your list with friends.
